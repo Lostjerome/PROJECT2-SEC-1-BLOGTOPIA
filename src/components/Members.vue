@@ -5,7 +5,6 @@ import githubLogo from './icons/SkillIconsGithubLight.vue'
 import instaLogo from './icons/LogosInstagramIcon.vue'
 
 const members = ref(getMember())
-console.log(getMember())
 
 const props = defineProps({
     name : {
@@ -31,13 +30,13 @@ const props = defineProps({
 </script>
  
 <template>
-    <div class="md:px-32 mx-5 py-4 md:block">
-        <div class="md:text-3xl text-xl  font-bold md:m-8 my-4">
+    <div class="flex flex-col max-w-7xl min-w-fit m-auto">
+        <div class="text-3xl  font-bold m-8 my-4">
             Meet the team
         </div>
-            <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-x-5 gap-y-8">
+            <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-y-8 justify-items-center">
                 <div v-for="(person, index) in members" :key="index" 
-                class="flex flex-col md:pl-12 px-4 space-y-1">
+                class="flex flex-col mx-10 space-y-1">
                     <img src="../assets/image/knuckles.jpg" 
                         class="flex object-cover h-72 w-80 rounded-xl" />
                     <div class="text-xl font-semibold">
