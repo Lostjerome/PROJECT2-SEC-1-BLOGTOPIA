@@ -9,10 +9,12 @@ console.log(getMember())
 
 const props = defineProps({
     name : {
-        type : String
+        type : String,
+        required : true
     },
     studentId : {
-        type : String
+        type : String,
+        required : true
     },
     githubUrl : {
         type : String
@@ -25,12 +27,15 @@ const props = defineProps({
     }
 }
 )
+
 </script>
  
 <template>
-    <div class="md:px-32 mx-5  py-4">
-        <div class="md:text-3xl text-xl  font-bold md:m-8 my-4">Meet the team</div>
-            <div class="grid md:grid-cols-3 gap-x-5 gap-y-8">
+    <div class="md:px-32 mx-5 py-4 md:block">
+        <div class="md:text-3xl text-xl  font-bold md:m-8 my-4">
+            Meet the team
+        </div>
+            <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-x-5 gap-y-8">
                 <div v-for="(person, index) in members" :key="index" 
                 class="flex flex-col md:pl-12 px-4 space-y-1">
                     <img src="../assets/image/knuckles.jpg" 
