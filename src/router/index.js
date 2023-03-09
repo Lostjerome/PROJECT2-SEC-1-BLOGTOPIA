@@ -1,10 +1,41 @@
 import { createWebHistory, createRouter } from "vue-router";
+import Home from "../views/Home.vue";
+import Blog from "../views/Blog.vue";
+import OurTeam from "../views/OurTeam.vue";
+import Topic from "../views/Topic.vue";
+import Search from "../views/Search.vue";
+import Write from "../views/Write.vue";
 
-const routes = [
+export const routes = [
   {
     path: "/",
-    name: "",
-    component: "",
+    name: "Home",
+    component: Home,
+  },
+  {
+    path: "/blog/:id",
+    name: "Blog",
+    component: Blog,
+  },
+  {
+    path: "/our-team",
+    name: "Meet our team",
+    component: OurTeam,
+  },
+  {
+    path: "/topic/:id",
+    name: "Topic",
+    component: Topic,
+  },
+  {
+    path: "/search",
+    name: "Search",
+    component: Search,
+  },
+  {
+    path: "/write",
+    name: "Writing a blog",
+    component: Write,
   },
 ];
 
