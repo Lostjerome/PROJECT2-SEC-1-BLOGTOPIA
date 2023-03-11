@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from "vue";
-const isList = ref(false);
+// const isList = ref(false);
 
 const props = defineProps({
   title: {
@@ -27,13 +27,13 @@ const props = defineProps({
 <template>
   <!-- blog -->
   <div
-    class="m-20 p-5 flex bg-slate-200 rounded-2xl items-center"
+    class="flex rounded-2xl items-center"
     :class="
-      isList == true ? ' flex-rows w-fit' : 'flex-col space-y-5 w-[26rem]'
+      isList == true ? ' flex-rows w-fit' : 'flex-col space-y-5'
     "
   >
     <!-- image -->
-    <div class="w-96">
+    <div class="w-80">
       <img
         src="../assets/image/skynews-drew-scanlon-blinking-white-guy_4786055.jpg"
         class="rounded-2xl"
@@ -41,7 +41,7 @@ const props = defineProps({
     </div>
 
     <!-- content_blog -->
-    <div class="w-96" :class="isList == true ? 'ml-3 mb-4' : ''">
+    <div class="w-80 my-5" :class="isList == true ? 'ml-3 mb-4' : ''">
       <!-- profile -->
       <div class="flex flex-rows">
         <!-- profile_pic -->
