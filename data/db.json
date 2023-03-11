@@ -5,35 +5,35 @@
       "name": "Chonticha Li",
       "githubUrl": "https://github.com/sealbb",
       "igUrl": "https://www.instagram.com/sealb.b/",
-      "img": "xxxxx"
+      "img": "../src/assets/image/imgSEALB.jpg"
     },
     {
       "id": "64130500017",
       "name": "Naronkrach Tanajarusawas",
       "githubUrl": "https://github.com/lostjerome",
       "igUrl": "https://www.instagram.com/lostjerome/",
-      "img": "xxxxx"
+      "img": "../src/assets/image/imgJEROME.jpg"
     },
     {
       "id": "64130500026",
       "name": "Thaksaporn Lachaisong",
       "githubUrl": "https://github.com/baybiebxm",
       "igUrl": "https://www.instagram.com/6ammiffy/",
-      "img": "xxxxx"
+      "img": "../src/assets/image/imgBAYBIEBXM.jpg"
     },
     {
       "id": "64130500030",
       "name": "Thanaphat Julmeewong",
       "githubUrl": "https://github.com/CRYINGV",
       "igUrl": "https://www.instagram.com/job_thanaphat/",
-      "img": "xxxxx"
+      "img": "../src/assets/image/imgCRYING.jpg"
     },
     {
       "id": "64130500031",
       "name": "Tanapat Daoloy",
       "githubUrl": "https://github.com/darKKOREO",
       "igUrl": "https://www.instagram.com/your_ctrl/",
-      "img": "xxxxx"
+      "img": "../src/assets/image/imgOREO.jpg"
     }
   ],
   "blogs": [
