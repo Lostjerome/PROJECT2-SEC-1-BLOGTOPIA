@@ -16,7 +16,7 @@ import Blog from "../components/Blog.vue";
       </div>
     </div>
     <div class="mt-7 max-w-6xl w-full hidden md:block">
-      <h1 class="text-4xl font-bold pt-7 text-center md:text-start">Suggested blogs for you</h1>
+      <h1 class="text-3xl font-bold pt-7 text-start">Suggested blogs for you</h1>
       <div class="max-w-6xl w-full grid grid-cols-3 place-items-center my-10">
         <Blog />
         <Blog/>
