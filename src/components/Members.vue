@@ -25,13 +25,12 @@ const props = defineProps({
 </script>
  
 <template>
-    <div class="space-y-1">
         <img :src="image" 
             class="flex object-cover h-72 w-80 rounded-lg" />
-        <div class="text-base font-semibold uppercase">
+        <div class="text-base font-semibold uppercase pt-2">
             {{ name }}
         </div> 
-        <div class="text-sm font-semibold text-[#000000b9] border-b-2">
+        <div class="text-sm font-semibold text-[#000000b9] pb-1 border-b-2">
             {{ studentId }}
         </div>
         <div class="flex place-items-center gap-2">
@@ -41,9 +40,8 @@ const props = defineProps({
             <a :href="instagramUrl" target="_blank">
                 <instaLogo class="text-xl" />
             </a>
-
         </div>
-    </div>
+
 </template>
  
 <style scoped>
