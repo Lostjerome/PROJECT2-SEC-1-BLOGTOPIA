@@ -11,7 +11,6 @@ const props = defineProps({
   },
   isList: {
     type: Boolean,
-    required: true,
   },
   author: {
     type: String,
@@ -28,9 +27,7 @@ const props = defineProps({
   <!-- blog -->
   <div
     class="flex rounded-2xl items-center"
-    :class="
-      isList == true ? ' flex-rows w-fit' : 'flex-col space-y-5'
-    "
+    :class="isList == true ? ' flex-rows w-fit' : 'flex-col'"
   >
     <!-- image -->
     <div class="w-80">

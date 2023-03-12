@@ -7,10 +7,10 @@ import { routes } from "./router/index.js";
 <template>
   <div>
     <NavBar />
-    <div v-for="(route, key) in routes" :key="key">
-      <router-link :to="route.path">
-        {{ route.name }}
-      </router-link>
+    <div class="flex">
+      <div v-for="(route, key) in routes" :key="key">
+        <router-link :to="route.path"> {{ route.name }} &nbsp; </router-link>
+      </div>
     </div>
     <router-view />
   </div>

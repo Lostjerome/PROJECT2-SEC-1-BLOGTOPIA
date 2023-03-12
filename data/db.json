@@ -3,36 +3,46 @@
     {
       "id": "64130500013",
       "name": "Chonticha Li",
-      "githubUrl": "https://github.com/sealbb",
-      "igUrl": "https://www.instagram.com/sealb.b/",
+      "url": {
+        "github": "https://github.com/sealbb",
+        "ig": "https://www.instagram.com/sealb.b/"
+      },
       "img": "../src/assets/image/imgSEALB.jpg"
     },
     {
       "id": "64130500017",
       "name": "Naronkrach Tanajarusawas",
-      "githubUrl": "https://github.com/lostjerome",
-      "igUrl": "https://www.instagram.com/lostjerome/",
+      "url": {
+        "github": "https://github.com/lostjerome",
+        "ig": "https://www.instagram.com/lostjerome/"
+      },
       "img": "../src/assets/image/imgJEROME.jpg"
     },
     {
       "id": "64130500026",
       "name": "Thaksaporn Lachaisong",
-      "githubUrl": "https://github.com/baybiebxm",
-      "igUrl": "https://www.instagram.com/6ammiffy/",
+      "url": {
+        "github": "https://github.com/baybiebxm",
+        "ig": "https://www.instagram.com/6ammiffy/"
+      },
       "img": "../src/assets/image/imgBAYBIEBXM.jpg"
     },
     {
       "id": "64130500030",
       "name": "Thanaphat Julmeewong",
-      "githubUrl": "https://github.com/CRYINGV",
-      "igUrl": "https://www.instagram.com/job_thanaphat/",
+      "url": {
+        "github": "https://github.com/CRYINGV",
+        "ig": "https://www.instagram.com/job_thanaphat/"
+      },
       "img": "../src/assets/image/imgCRYING.jpg"
     },
     {
       "id": "64130500031",
       "name": "Tanapat Daoloy",
-      "githubUrl": "https://github.com/darKKOREO",
-      "igUrl": "https://www.instagram.com/your_ctrl/",
+      "url": {
+        "github": "https://github.com/darKKOREO",
+        "ig": "https://www.instagram.com/your_ctrl/"
+      },
       "img": "../src/assets/image/imgOREO.jpg"
     }
   ],
@@ -40,6 +50,7 @@
     {
       "id": "0",
       "title": "Blog's title",
+      "cover": "",
       "contents": [
         {
           "id": 0,
@@ -48,14 +59,18 @@
         },
         {
           "id": 1,
-          "text": "What is Blogtopia",
-          "type": "Lorem ipsum dolor sit amet consectetur. Gravida dignissim urna aenean mauris mauris leo quis in. Aliquet dui commodo id risus hendrerit a vel."
+          "text": "Lorem ipsum dolor sit amet consectetur. Gravida dignissim urna aenean mauris mauris leo quis in. Aliquet dui commodo id risus hendrerit a vel.",
+          "type": "paragraph"
         }
-      ]
+      ],
+      "topics": ["Programming", "Web Development"],
+      "author": "John Doe",
+      "date": "2021-05-01"
     },
     {
       "id": "1",
       "title": "Blog's title",
+      "cover": "",
       "contents": [
         {
           "id": 0,
@@ -64,10 +79,13 @@
         },
         {
           "id": 1,
-          "text": "What is Blogtopia",
-          "type": "Lorem ipsum dolor sit amet consectetur. Gravida dignissim urna aenean mauris mauris leo quis in. Aliquet dui commodo id risus hendrerit a vel."
+          "text": "Lorem ipsum dolor sit amet consectetur. Gravida dignissim urna aenean mauris mauris leo quis in. Aliquet dui commodo id risus hendrerit a vel.",
+          "type": "paragraph"
         }
-      ]
+      ],
+      "topics": ["Programming", "Web Development"],
+      "author": "James Doe",
+      "date": "2021-05-01"
     }
   ]
 }
