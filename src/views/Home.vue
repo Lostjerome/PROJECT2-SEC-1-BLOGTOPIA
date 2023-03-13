@@ -23,7 +23,7 @@ import Blog from "../components/Blog.vue";
         <Blog />
       </div>
     </div>
-    <div class="flex flex-row gap-28 max-w-6xl w-full p-6 md:mt-20">
+    <div class="flex md:flex-row flex-col-reverse md:gap-28 max-w-6xl w-full p-6 md:mt-20">
       <div class="w-4/6 ">
         <div class="flex flex-col justify-start content-start gap-2">
           <Blog :isList="true"/>
@@ -32,12 +32,12 @@ import Blog from "../components/Blog.vue";
           <Blog :isList="true"/>
         </div>
       </div>
-      <div class="w-2/5 hidden md:block p-5">
-        <div class="bg-gray-200 rounded-2xl p-6 hidden md:block">
+      <div class="md:w-2/5 md:p-5">
+        <div class="md:bg-gray-200 rounded-2xl md:p-6">
           <div>
             <h2 class="font-bold text-xl mb-4">Recommended topics</h2>
           </div>
-          <div class="flex flex-wrap gap-2">
+          <div class="flex md:flex-wrap gap-2 items-center">
             <div class="bg-gray-300 rounded-full p-2 px-4 text-center w-fit text-xs">Programming</div>
             <div class="bg-gray-300 rounded-full p-2 px-4 text-center w-fit text-xs">Technology</div>
             <div class="bg-gray-300 rounded-full p-2 px-4 text-center w-fit text-xs">Self Improvement</div>
