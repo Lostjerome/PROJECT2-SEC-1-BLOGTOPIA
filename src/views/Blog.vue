@@ -1,4 +1,5 @@
 <script setup>
+import { ref } from "vue";
 import Blog from "../components/Blog.vue";
 const scrollToTop = () => {
   window.scrollTo({
@@ -6,9 +7,24 @@ const scrollToTop = () => {
     behavior: "smooth",
   });
 };
+
+// fetch blog from localhost:5000
+const blog = ref([]);
+const getBlog = async () => {
+  const res = await fetch("http://localhost:5000/blogs/1");
+  blog.value = await res.json();
+};
+const onGetBlog = () => {
+  getBlog().then(() => {
+    console.log(blog.value);
+    console.log(blog.value.title);
+    console.log(blog.value.contents[0]);
+  });
+};
 </script>
 <template>
   <div>
+    <button class="bg-red-500" @click="onGetBlog">Get blog</button>
     <div class="w-full max-w-6xl m-auto">
       <button
         @click="scrollToTop"
