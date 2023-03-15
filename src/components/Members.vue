@@ -26,7 +26,7 @@ const props = defineProps({
  
 <template>
         <img :src="image" 
-            class="flex object-cover h-72 w-80 rounded-lg" />
+            class="flex object-cover h-64 w-72 rounded-lg" />
         <div class="text-base font-semibold uppercase pt-2">
             {{ name }}
         </div> 
