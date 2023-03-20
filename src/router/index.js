@@ -5,7 +5,8 @@ import OurTeam from "../views/OurTeam.vue";
 import Topic from "../views/Topic.vue";
 import Search from "../views/Search.vue";
 import Write from "../views/Write.vue";
-
+import AllBlogs from "../views/AllBlogs.vue";
+import NotFound from "../views/NotFound.vue";
 export const routes = [
   {
     path: "/",
@@ -36,6 +37,21 @@ export const routes = [
     path: "/write",
     name: "Writing a blog",
     component: Write,
+  },
+  {
+    path: "/edit/:id",
+    name: "Editing a blog",
+    component: Write,
+  },
+  {
+    path: "/all-blogs",
+    name: "All blogs",
+    component: AllBlogs,
+  },
+  {
+    path: "/:catchAll(.*)",
+    name: "404",
+    component: NotFound,
   },
 ];
 
