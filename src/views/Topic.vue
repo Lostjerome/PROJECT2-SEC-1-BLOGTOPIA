@@ -18,6 +18,7 @@ onMounted(async () => {
 <template>
   <!-- body -->
   <div class="mt-4 max-w-6xl m-auto">
+
     <h1 class="font-bold text-3xl">Topic's name</h1>
 
     <!-- content -->
@@ -31,12 +32,15 @@ onMounted(async () => {
           :isList="true"
         />
       </div>
+
       <!-- Recommended topics -->
-      <div class="w-2/5 hidden md:block p-5 ml-40">
-        <div class="bg-gray-200 rounded-2xl p-6 hidden md:block">
+      <!-- Pui's code -->
+      <div class="md:w-2/5 md:p-5">
+        <div class="md:bg-gray-200 rounded-2xl md:p-6">
           <div>
-            <h2 class="font-bold text-xl mb-4">Recommended topics</h2>
+            <h2 class="font-bold text-xl mb-4">Recommended&nbsp;topics</h2>
           </div>
+
           <div class="flex flex-wrap gap-2">
             <div
               class="bg-gray-300 rounded-full p-2 px-4 text-center w-fit text-xs"
@@ -67,5 +71,7 @@ onMounted(async () => {
         </div>
       </div>
     </div>
+
   </div>
+</div>
 </template>

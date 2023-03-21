@@ -1,13 +1,19 @@
 <script setup>
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
 import Member from "../components/Members.vue";
 import getMember from "../composable/getMember";
 
-const members = ref(getMember());
-console.log(getMember());
+const members = ref([]);
+
+onMounted( async() => {
+    members.value = await getMember()
+})
+
 </script>
 <template>
-    <div class="flex flex-col max-w-7xl min-w-fit m-auto">
+    <!-- <div class="flex flex-col max-w-4xl min-w-fit m-auto"> -->
+    <div class="flex max-w-6xl m-auto">
+        <div class="">
         <div class="text-3xl font-bold ml-10 mt-6">Meet the team</div>
         <div class="flex flex-wrap justify-center gap-y-8 my-10">
         <div
@@ -22,6 +28,7 @@ console.log(getMember());
             :instagram-url="person.url.ig"
             :image="person.img"
             />
+        </div>
         </div>
         </div>
     </div>

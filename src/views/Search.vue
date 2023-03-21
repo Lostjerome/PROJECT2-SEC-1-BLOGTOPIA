@@ -4,6 +4,7 @@ import Blog from "../components/Blog.vue";
 <template>
   <!-- body -->
   <div class="mt-4 max-w-6xl m-auto">
+
     <h1 class="font-bold text-3xl text-gray-500">
       Result for <span class="text-black">“Search word”</span>
     </h1>
@@ -18,12 +19,15 @@ import Blog from "../components/Blog.vue";
           <Blog :isList="true"/>
           <Blog :isList="true"/> -->
       </div>
+
       <!-- Recommended topics -->
-      <div class="w-2/5 hidden md:block p-5 ml-40">
-        <div class="bg-gray-200 rounded-2xl p-6 hidden md:block">
+      <!-- Pui's code -->
+      <div class="md:w-2/5 md:p-5">
+        <div class="md:bg-gray-200 rounded-2xl md:p-6">
           <div>
-            <h2 class="font-bold text-xl mb-4">Recommended topics</h2>
+            <h2 class="font-bold text-xl mb-4">Recommended&nbsp;topics</h2>
           </div>
+
           <div class="flex flex-wrap gap-2">
             <div
               class="bg-gray-300 rounded-full p-2 px-4 text-center w-fit text-xs"
@@ -55,4 +59,5 @@ import Blog from "../components/Blog.vue";
       </div>
     </div>
   </div>
+
 </template>
