@@ -1,13 +1,48 @@
 <script setup>
-import { ref } from 'vue';
+import { ref, watch } from "vue";
+import { useRouter } from "vue-router";
 
-const isOpen =ref[false]
+const isOpen = ref[false];
+const router = useRouter();
+// get the current route
+const currentRoute = ref(router.currentRoute.value.fullPath);
 
+const publish = () => {
+  console.log(content.value);
+  // router.push("/blog");
+  // // fetch("/api/blog",
+  // fetch("http://localhost:5000/blogs", {
+  //   method: "POST",
+  //   headers: {
+  //     "Content-Type": "application/json",
+  //   },
+  //   body: JSON.stringify({
+  //     title: "Hello",
+  //     contents: [
+  //       {
+  //         id: "0",
+  //         text: "What is Blogtopia",
+  //         type: "header",
+  //       },
+  //     ],
+  //   }),
+  // })
+  //   .then((res) => res.json())
+  //   .then((data) => console.log(data));
+};
+
+// watch for changes in the route
+watch(
+  () => router.currentRoute.value.fullPath,
+  (newRoute) => {
+    currentRoute.value = newRoute;
+  }
+);
 </script>
 <template>
-  <div class="border-b-2">
+  <div class="bg-white drop-shadow-md">
     <div
-      class="flex items-center justify-between w-full max-w-6xl px-3 py-3 mx-auto lg:px-4 mt-8 mb-2"
+      class="flex items-center justify-between w-full max-w-6xl px-3 py-5 mx-auto lg:px-4"
     >
       <div class="flex items-center">
         <a href="/" class="flex">
@@ -15,6 +50,7 @@ const isOpen =ref[false]
             >Blogtopia</span
           >
         </a>
+
         <div class="ml-10">
           <button
             type="button"
@@ -64,57 +100,110 @@ const isOpen =ref[false]
             />
           </div>
         </div>
-      </div>
-
-      <div class="flex">
-        <ul class="flex-col hidden pt-6 lg:flex-row lg:self-center lg:py-0 lg:flex">
-          <li class="mb-3 lg:px-2 xl:px-2 lg:mb-0">
-            <a
-              href="#"
-              class="text-l font-bold text-gray-900 hover:text-blue-600"
-              >Meet our team</a
-            >
-          </li>
-          <li class="mb-3 lg:px-2 xl:px-2 lg:mb-0 xl:block">
-            <a
-              href="#"
-              class="text-l font-bold text-gray-900 hover:text-blue-600"
-              >Sign in</a
-            >
-          </li>
-        </ul>
-        <a
-          href="#"
-          class="xl:inline-flex hidden items-center text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-full text-sm px-5 py-2.5 text-center ml-5"
-          >Get Started</a
+        <button
+          v-if="currentRoute.includes('edit') || currentRoute.includes('write')"
+          @click="publish"
+          class="items-center text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-full text-sm px-5 py-2.5 text-center ml-5"
         >
+          Publish
+        </button>
+        <div v-else class="flex">
+          <ul
+            class="flex-col hidden pt-6 lg:flex-row lg:self-center lg:py-0 lg:flex"
+          >
+            <li class="mb-3 lg:px-2 xl:px-2 lg:mb-0">
+              <a
+                href="#"
+                class="text-l font-bold text-gray-900 hover:text-blue-600"
+                >Meet our team</a
+              >
+            </li>
+            <li class="mb-3 lg:px-2 xl:px-2 lg:mb-0 xl:block">
+              <a
+                href="#"
+                class="text-l font-bold text-gray-900 hover:text-blue-600"
+                >Sign in</a
+              >
+            </li>
+          </ul>
+          <a
+            href="#"
+            class="xl:inline-flex hidden items-center text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-full text-sm px-5 py-2.5 text-center ml-5"
+            >Get Started</a
+          >
+        </div>
+        <button
+          data-collapse-toggle="navbar-hamburger"
+          type="button"
+          class="lg:hidden inline-flex items-center p-2 ml-3 text-sm text-gray-500 rounded-lg hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200"
+          aria-controls="navbar-hamburger"
+          aria-expanded="false"
+        >
+          <span class="sr-only">Open main menu</span>
+          <svg
+            class="w-6 h-6"
+            aria-hidden="true"
+            fill="currentColor"
+            viewBox="0 0 20 20"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
+              clip-rule="evenodd"
+            ></path>
+          </svg>
+        </button>
+        <div class="hidden w-full" id="navbar-hamburger">
+          <ul
+            class="flex flex-col mt-4 rounded-lg bg-gray-50 dark:bg-gray-800 dark:border-gray-700"
+          >
+            <li>
+              <a
+                href="../views/Home.vue"
+                class="block py-2 pl-3 pr-4 text-white bg-blue-700 rounded"
+                aria-current="page"
+                >Home</a
+              >
+            </li>
+            <li>
+              <a
+                href="../views/Blog.vue"
+                class="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 dark:text-gray-400"
+                >Blog</a
+              >
+            </li>
+            <li>
+              <a
+                href="../views/OurTeam.vue"
+                class="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 dark:text-gray-400"
+                >Meet our team</a
+              >
+            </li>
+            <li>
+              <a
+                href="../views/Topic.vue"
+                class="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100"
+                >Topic</a
+              >
+            </li>
+            <li>
+              <a
+                href="../views/Search.vue"
+                class="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100"
+                >Search</a
+              >
+            </li>
+            <li>
+              <a
+                href="../views/Write.vue"
+                class="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100"
+                >Write a blog</a
+              >
+            </li>
+          </ul>
+        </div>
       </div>
-      <button data-collapse-toggle="navbar-hamburger" type="button" class="lg:hidden inline-flex items-center p-2 ml-3 text-sm text-gray-500 rounded-lg hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200" aria-controls="navbar-hamburger" aria-expanded="false"> 
-      <span class="sr-only">Open main menu</span>
-      <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path></svg>
-    </button>
-    <div class="hidden w-full" id="navbar-hamburger">
-      <ul class="flex flex-col mt-4 rounded-lg bg-gray-50 dark:bg-gray-800 dark:border-gray-700">
-        <li>
-          <a href="../views/Home.vue" class="block py-2 pl-3 pr-4 text-white bg-blue-700 rounded" aria-current="page">Home</a>
-        </li>
-        <li>
-          <a href="../views/Blog.vue" class="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 dark:text-gray-400">Blog</a>
-        </li>
-        <li>
-          <a href="../views/OurTeam.vue" class="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 dark:text-gray-400">Meet our team</a>
-        </li>
-        <li>
-          <a href="../views/Topic.vue" class="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100">Topic</a>
-        </li>
-        <li>
-          <a href="../views/Search.vue" class="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100">Search</a>
-        </li>
-        <li>
-          <a href="../views/Write.vue" class="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100">Write a blog</a>
-        </li>
-      </ul>
-    </div>
     </div>
   </div>
 </template>
