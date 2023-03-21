@@ -5,12 +5,11 @@ import { ref, onMounted, computed } from "vue";
 import { useRoute } from "vue-router";
 
 const blogs = ref([]);
+const router = useRoute();
+const selectedTopic = router.params.id;
 const fillteredBlogs = computed(() => {
-  return blogs.value.filter((blog) => blog.topics.includes(selectedTopic));
+  return blogs.value.filter((blog) => blog.topics?.includes(selectedTopic));
 });
-const route = useRoute();
-const selectedTopic = route.params.id;
-
 onMounted(async () => {
   blogs.value = await getBlog();
   console.log(blogs.value);

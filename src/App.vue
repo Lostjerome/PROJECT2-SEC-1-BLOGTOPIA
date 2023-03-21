@@ -1,7 +1,5 @@
 <script setup>
-import Blog from "./components/Blog.vue";
 import NavBar from "./components/NavBar.vue";
-import Member from "./components/Members.vue";
 import { routes } from "./router/index.js";
 </script>
 <template>

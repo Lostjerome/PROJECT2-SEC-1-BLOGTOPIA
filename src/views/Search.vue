@@ -3,18 +3,20 @@ import Blog from "../components/Blog.vue";
 </script>
 <template>
   <!-- body -->
-  <div class="mt-4 max-w-6xl  m-auto">
-    <h1 class=" font-bold text-3xl text-gray-500">Result for <span class="text-black">“Search word”</span></h1>
-    
+  <div class="mt-4 max-w-6xl m-auto">
+    <h1 class="font-bold text-3xl text-gray-500">
+      Result for <span class="text-black">“Search word”</span>
+    </h1>
+
     <!-- content -->
-    <div class=" flex flex-rows mt-7">
+    <div class="flex flex-rows mt-7">
       <!-- Blog-list -->
       <div>
+        <!-- <Blog :isList="true"/>
           <Blog :isList="true"/>
           <Blog :isList="true"/>
           <Blog :isList="true"/>
-          <Blog :isList="true"/>
-          <Blog :isList="true"/>
+          <Blog :isList="true"/> -->
       </div>
       <!-- Recommended topics -->
       <div class="w-2/5 hidden md:block p-5 ml-40">
@@ -23,15 +25,34 @@ import Blog from "../components/Blog.vue";
             <h2 class="font-bold text-xl mb-4">Recommended topics</h2>
           </div>
           <div class="flex flex-wrap gap-2">
-            <div class="bg-gray-300 rounded-full p-2 px-4 text-center w-fit text-xs">Programming</div>
-            <div class="bg-gray-300 rounded-full p-2 px-4 text-center w-fit text-xs">Technology</div>
-            <div class="bg-gray-300 rounded-full p-2 px-4 text-center w-fit text-xs">Self Improvement</div>
-            <div class="bg-gray-300 rounded-full p-2 px-4 text-center w-fit text-xs">Writing</div>
-            <div class="bg-gray-300 rounded-full p-2 px-4 text-center w-fit text-xs">Relationships</div>
+            <div
+              class="bg-gray-300 rounded-full p-2 px-4 text-center w-fit text-xs"
+            >
+              Programming
+            </div>
+            <div
+              class="bg-gray-300 rounded-full p-2 px-4 text-center w-fit text-xs"
+            >
+              Technology
+            </div>
+            <div
+              class="bg-gray-300 rounded-full p-2 px-4 text-center w-fit text-xs"
+            >
+              Self Improvement
+            </div>
+            <div
+              class="bg-gray-300 rounded-full p-2 px-4 text-center w-fit text-xs"
+            >
+              Writing
+            </div>
+            <div
+              class="bg-gray-300 rounded-full p-2 px-4 text-center w-fit text-xs"
+            >
+              Relationships
+            </div>
           </div>
         </div>
       </div>
     </div>
-
   </div>
 </template>

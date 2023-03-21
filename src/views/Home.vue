@@ -1,13 +1,27 @@
 <script setup>
 import Blog from "../components/Blog.vue";
 import { getBlog } from "../composable/getBlogs";
+import { getTopics } from "../composable/getTopics";
 import { ref, onMounted } from "vue";
+import { useRouter } from "vue-router";
 
 const blogs = ref([]);
+const topics = ref([]);
+const router = useRouter();
+const scrollToTop = () => {
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth",
+  });
+};
+const selectTopic = (topic) => {
+  router.push(`/topic/${topic}`);
+  scrollToTop();
+};
 
 onMounted(async () => {
   blogs.value = await getBlog();
-  console.log(blogs.value);
+  topics.value = await getTopics();
 });
 </script>
 <template>
@@ -60,31 +74,14 @@ onMounted(async () => {
               <h2 class="font-bold text-xl mb-4">Recommended topics</h2>
             </div>
             <div class="flex md:flex-wrap gap-2 items-center">
-              <div
+              <button
                 class="bg-gray-300 rounded-full p-2 px-4 text-center w-fit text-xs"
+                v-for="(topic, key) in topics"
+                :key="key"
+                @click="selectTopic(topic)"
               >
-                Programming
-              </div>
-              <div
-                class="bg-gray-300 rounded-full p-2 px-4 text-center w-fit text-xs"
-              >
-                Technology
-              </div>
-              <div
-                class="bg-gray-300 rounded-full p-2 px-4 text-center w-fit text-xs"
-              >
-                Self Improvement
-              </div>
-              <div
-                class="bg-gray-300 rounded-full p-2 px-4 text-center w-fit text-xs"
-              >
-                Writing
-              </div>
-              <div
-                class="bg-gray-300 rounded-full p-2 px-4 text-center w-fit text-xs"
-              >
-                Relationships
-              </div>
+                {{ topic }}
+              </button>
             </div>
           </div>
         </div>
