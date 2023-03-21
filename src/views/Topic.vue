@@ -18,7 +18,6 @@ onMounted(async () => {
 <template>
   <!-- body -->
   <div class="mt-4 max-w-6xl m-auto">
-
     <h1 class="font-bold text-3xl">Topic's name</h1>
 
     <!-- content -->
@@ -71,7 +70,5 @@ onMounted(async () => {
         </div>
       </div>
     </div>
-
   </div>
-</div>
 </template>
