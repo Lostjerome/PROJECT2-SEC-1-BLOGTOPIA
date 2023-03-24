@@ -35,6 +35,13 @@ onMounted(async () => {
   blogs.value = await getBlog();
   topics.value = await getTopics();
 });
+
+
+const fetchBlog = async ()=>{
+  blogs.value = await getBlog();
+}
+
+
 </script>
 <template>
   <div class="w-full">
@@ -66,6 +73,7 @@ onMounted(async () => {
             v-for="(blog, key) in recommendedBlog"
             :key="key"
             :blog="blog"
+            @onFetch="fetchBlog"
           />
         </div>
       </div>
@@ -76,6 +84,7 @@ onMounted(async () => {
             :key="key"
             :blog="blog"
             :isList="true"
+            @onFetch="fetchBlog"
           />
         </div>
         <div class="md:mx-3">

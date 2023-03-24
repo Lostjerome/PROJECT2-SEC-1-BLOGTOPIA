@@ -23,6 +23,10 @@ watch(
     searchTerm.value = newSearchTerm;
   }
 );
+
+const fetchBlog = async ()=>{
+  blogs.value = await getBlog();
+}
 </script>
 <template>
   <!-- body -->
@@ -40,6 +44,7 @@ watch(
           :key="key"
           :blog="blog"
           :isList="true"
+          @onFetch="fetchBlog"
         />
       </div>
 

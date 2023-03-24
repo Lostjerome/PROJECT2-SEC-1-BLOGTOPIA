@@ -14,6 +14,10 @@ onMounted(async () => {
   blogs.value = await getBlog();
   console.log(blogs.value);
 });
+
+const fetchBlog = async ()=>{
+  blogs.value = await getBlog();
+}
 </script>
 <template>
   <!-- body -->
@@ -31,6 +35,7 @@ onMounted(async () => {
           :key="key"
           :blog="blog"
           :isList="true"
+          @onFetch="fetchBlog"
         />
       </div>
 
