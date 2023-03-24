@@ -1,23 +1,46 @@
 <script setup>
+import { computed, onMounted, ref, watch } from "vue";
+import { useRoute } from "vue-router";
 import Blog from "../components/Blog.vue";
+import { getBlog } from "../composable/getBlogs";
+
+const route = useRoute();
+const searchTerm = ref(route.params.searchTerm);
+const blogs = ref([]);
+
+const fillteredBlogs = computed(() => {
+  return blogs.value.filter((blog) =>
+    blog.title.toLowerCase().includes(searchTerm.value.toLowerCase())
+  );
+});
+onMounted(async () => {
+  blogs.value = await getBlog();
+});
+
+watch(
+  () => route.params.searchTerm,
+  (newSearchTerm) => {
+    searchTerm.value = newSearchTerm;
+  }
+);
 </script>
 <template>
   <!-- body -->
   <div class="mt-4 max-w-6xl m-auto">
-
     <h1 class="font-bold text-3xl text-gray-500">
-      Result for <span class="text-black">“Search word”</span>
+      Result for <span class="text-black">{{ searchTerm }}</span>
     </h1>
 
     <!-- content -->
     <div class="flex flex-rows mt-7">
-      <!-- Blog-list -->
+      <!-- Blog-list filtered by searchTerm -->
       <div>
-        <!-- <Blog :isList="true"/>
-          <Blog :isList="true"/>
-          <Blog :isList="true"/>
-          <Blog :isList="true"/>
-          <Blog :isList="true"/> -->
+        <Blog
+          v-for="(blog, key) in fillteredBlogs"
+          :key="key"
+          :blog="blog"
+          :isList="true"
+        />
       </div>
 
       <!-- Recommended topics -->
@@ -59,5 +82,4 @@ import Blog from "../components/Blog.vue";
       </div>
     </div>
   </div>
-
 </template>

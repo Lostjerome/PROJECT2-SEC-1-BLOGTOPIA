@@ -29,7 +29,7 @@ export const routes = [
     component: Topic,
   },
   {
-    path: "/search",
+    path: "/search/:searchTerm",
     name: "Search",
     component: Search,
   },

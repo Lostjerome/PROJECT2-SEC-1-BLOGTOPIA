@@ -1,20 +1,34 @@
 <script setup>
-import { ref, watch } from "vue";
+import { onMounted, ref, watch } from "vue";
 import { useRouter } from "vue-router";
 import SearchIcon from "./icons/SearchIcon.vue";
 
 const isOpen = ref[false];
+const route = useRouter();
 const router = useRouter();
+const searchTerm = ref("");
+const search = () => {
+  if (currentRoute.value.toLowerCase().includes("search")) {
+    router.push(`/search/${searchTerm.value}`);
+  } else {
+    router.push(`/search/${searchTerm.value}`);
+  }
+};
 // get the current route
 const currentRoute = ref(router.currentRoute.value.fullPath);
 
-// watch for changes in the route
-watch(
-  () => router.currentRoute.value.fullPath,
-  (newRoute) => {
-    currentRoute.value = newRoute;
+onMounted(() => {
+  if (currentRoute.value.toLowerCase().includes("search")) {
+    searchTerm.value = route?.params?.searchTerm;
   }
-);
+}),
+  // watch for changes in the route
+  watch(
+    () => router.currentRoute.value.fullPath,
+    (newRoute) => {
+      currentRoute.value = newRoute;
+    }
+  );
 </script>
 <template>
   <div class="bg-white drop-shadow-md" v-if="!currentRoute.includes('write')">
@@ -50,6 +64,8 @@ watch(
               id="search-navbar"
               class="p-2 pl-10 pr-10 text-sm text-gray-900 border border-gray-300 rounded-full bg-gray-50"
               placeholder="What do you want to read ?"
+              v-model="searchTerm"
+              @keyup.enter="search"
             />
           </div>
         </div>
