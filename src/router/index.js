@@ -34,13 +34,8 @@ export const routes = [
     component: Search,
   },
   {
-    path: "/write",
+    path: "/write/:id?",
     name: "Writing a blog",
-    component: Write,
-  },
-  {
-    path: "/edit/:id",
-    name: "Editing a blog",
     component: Write,
   },
   {

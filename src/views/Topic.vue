@@ -18,7 +18,9 @@ onMounted(async () => {
 <template>
   <!-- body -->
   <div class="mt-4 max-w-6xl m-auto">
-    <h1 class="font-bold text-3xl">Topic's name</h1>
+    <h1 class="text-3xl">
+      Topic: <span class="font-bold"> {{ selectedTopic }}</span>
+    </h1>
 
     <!-- content -->
     <div class="flex flex-rows mt-7">

@@ -1,35 +1,12 @@
 <script setup>
 import { ref, watch } from "vue";
 import { useRouter } from "vue-router";
+import SearchIcon from "./icons/SearchIcon.vue";
 
 const isOpen = ref[false];
 const router = useRouter();
 // get the current route
 const currentRoute = ref(router.currentRoute.value.fullPath);
-
-const publish = () => {
-  console.log(content.value);
-  // router.push("/blog");
-  // // fetch("/api/blog",
-  // fetch("http://localhost:5000/blogs", {
-  //   method: "POST",
-  //   headers: {
-  //     "Content-Type": "application/json",
-  //   },
-  //   body: JSON.stringify({
-  //     title: "Hello",
-  //     contents: [
-  //       {
-  //         id: "0",
-  //         text: "What is Blogtopia",
-  //         type: "header",
-  //       },
-  //     ],
-  //   }),
-  // })
-  //   .then((res) => res.json())
-  //   .then((data) => console.log(data));
-};
 
 // watch for changes in the route
 watch(
@@ -40,16 +17,16 @@ watch(
 );
 </script>
 <template>
-  <div class="bg-white drop-shadow-md">
+  <div class="bg-white drop-shadow-md" v-if="!currentRoute.includes('write')">
     <div
       class="flex items-center justify-between w-full max-w-6xl px-3 py-5 mx-auto lg:px-4"
     >
       <div class="flex items-center">
-        <a href="/" class="flex">
+        <router-link to="/" class="flex">
           <span class="self-center text-3xl font-bold whitespace-nowrap"
             >Blogtopia</span
           >
-        </a>
+        </router-link>
 
         <div class="ml-10">
           <button
@@ -59,37 +36,13 @@ watch(
             aria-expanded="false"
             class="md:hidden text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-4 focus:ring-gray-200 rounded-lg text-sm p-2.5 mr-1"
           >
-            <svg
-              class="w-5 h-5"
-              aria-hidden="true"
-              fill="currentColor"
-              viewBox="0 0 20 20"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                fill-rule="evenodd"
-                d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
-                clip-rule="evenodd"
-              ></path>
-            </svg>
+            <SearchIcon />
           </button>
           <div class="relative hidden md:block">
             <div
               class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none"
             >
-              <svg
-                class="w-5 h-5 text-gray-500"
-                aria-hidden="true"
-                fill="currentColor"
-                viewBox="0 0 20 20"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  fill-rule="evenodd"
-                  d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
-                  clip-rule="evenodd"
-                ></path>
-              </svg>
+              <SearchIcon />
               <span class="sr-only">Search icon</span>
             </div>
             <input
@@ -112,24 +65,17 @@ watch(
             class="flex-col hidden pt-6 lg:flex-row lg:self-center lg:py-0 lg:flex"
           >
             <li class="mb-3 lg:px-2 xl:px-2 lg:mb-0">
-              <a
-                href="#"
+              <router-link
+                to="/our-team"
                 class="text-l font-bold text-gray-900 hover:text-blue-600"
-                >Meet our team</a
-              >
-            </li>
-            <li class="mb-3 lg:px-2 xl:px-2 lg:mb-0 xl:block">
-              <a
-                href="#"
-                class="text-l font-bold text-gray-900 hover:text-blue-600"
-                >Sign in</a
+                >Meet our team</router-link
               >
             </li>
           </ul>
-          <a
-            href="#"
-            class="xl:inline-flex hidden items-center text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-full text-sm px-5 py-2.5 text-center ml-5"
-            >Get Started</a
+          <router-link
+            to="/write"
+            class="hidden lg:block items-center text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-full text-sm px-5 py-2.5 text-center ml-5"
+            >Get Started</router-link
           >
         </div>
         <button

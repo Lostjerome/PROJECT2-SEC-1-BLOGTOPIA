@@ -1,8 +1,7 @@
 <script setup>
-import { ref } from "vue";
-import { useRouter } from "vue-router";
-// const isList = ref(false);
+import { useRoute, useRouter } from "vue-router";
 
+const route = useRoute();
 const router = useRouter();
 
 const changeRoute = () => {
@@ -18,48 +17,36 @@ const scrollToTop = () => {
 };
 
 const props = defineProps({
-  // id: {
-  //   type: String,
-  // },
-  // title: {
-  //   type: String,
-  // },
-  // description: {
-  //   type: String,
-  // },
   isList: {
     type: Boolean,
   },
-  // author: {
-  //   type: String,
-  // },
-  // date: {
-  //   type: String,
-  // },
-  // image: {
-  //   type: String,
-  // },
   blog: {
     type: Object,
     required: true,
   },
 });
+
+const editBlog = (event) => {
+  event.stopPropagation();
+  router.push(`/write/${props.blog.id}`);
+};
 </script>
 <template>
   <!-- blog -->
   <button
     @click="changeRoute"
     class="text-start hover:bg-slate-200 rounded-xl duration-100 m-auto p-3"
+    :class="isList == true ? '' : 'h-full'"
   >
     <div
-      class="flex rounded-2xl"
-      :class="isList == true ? ' flex-rows w-fit' : 'flex-col'"
+      class="flex rounded-2xl h-full"
+      :class="isList == true ? 'flex-rows' : 'flex-col'"
     >
       <!-- image -->
       <div class="w-80">
         <img
-          src="../assets/image/skynews-drew-scanlon-blinking-white-guy_4786055.jpg"
-          class="rounded-lg"
+          :src="blog.cover"
+          class="rounded-lg bg-slate-300 outline outline-1 outline-slate-300 w-full h-52 object-cover"
         />
       </div>
 
@@ -67,11 +54,9 @@ const props = defineProps({
       <div class="w-80 my-5" :class="isList == true ? 'ml-3 mb-4' : ''">
         <!-- profile -->
         <div class="flex flex-rows">
-          <!-- profile_pic -->
-          <div class="bg-slate-400 w-7 h-7 rounded-full"></div>
           <!-- username&date_to_post -->
-          <h2 class="ml-1">{{ blog.author }}</h2>
-          <h2 class="text-slate-300">{{ blog.date }}</h2>
+          <h2 class="mr-1">{{ blog.author }}</h2>
+          <h2 class="text-slate-400">{{ blog.date }}</h2>
         </div>
         <!-- preview_content -->
         <div>
@@ -80,10 +65,21 @@ const props = defineProps({
             class="break-words text-slate-400"
             :class="isList == true ? 'pr-3' : ''"
           >
-            aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+            {{
+              // limit the length of the preview content to 100 characters
+              blog.content.substring(0, 100) +
+              (blog.content.length > 100 ? "..." : "")
+            }}
           </p>
         </div>
       </div>
+      <button
+        class="bg-blue-300 hover:bg-blue-500 duration-200"
+        @click="editBlog"
+        v-if="route.fullPath == '/all-blogs'"
+      >
+        Edit
+      </button>
     </div>
   </button>
 </template>
