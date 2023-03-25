@@ -1,17 +1,15 @@
 <script setup>
 import Blog from "../components/Blog.vue";
-import { getBlog } from "../composable/getBlogs";
+import { getBlog, getBlogsFromTopic } from "../composable/getBlogs";
 import { ref, onMounted, computed } from "vue";
 import { useRoute } from "vue-router";
 
 const blogs = ref([]);
 const router = useRoute();
 const selectedTopic = router.params.id;
-const fillteredBlogs = computed(() => {
-  return blogs.value.filter((blog) => blog.topics?.includes(selectedTopic));
-});
+
 onMounted(async () => {
-  blogs.value = await getBlog();
+  blogs.value = await getBlogsFromTopic(selectedTopic);
   console.log(blogs.value);
 });
 </script>
@@ -27,7 +25,7 @@ onMounted(async () => {
       <!-- Blog-list -->
       <div>
         <Blog
-          v-for="(blog, key) in fillteredBlogs"
+          v-for="(blog, key) in blogs"
           :key="key"
           :blog="blog"
           :isList="true"

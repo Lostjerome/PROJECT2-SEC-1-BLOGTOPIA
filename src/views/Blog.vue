@@ -22,13 +22,6 @@ const selectTopic = (topic) => {
 // fetch blog from localhost:5000
 const blog = ref({});
 
-const textStyle = {
-  header: "text-2xl font-bold",
-  paragraph: "text-slate-400",
-  quote: "text-slate-400",
-  code: "text-slate-400",
-};
-
 onMounted(async () => {
   blog.value = await getBlog(route.params.id);
   console.log(blog.value);
@@ -61,7 +54,7 @@ onMounted(async () => {
         </div>
         <div class="rounded-xl w-full">
           <img
-            class="w-full h-96 bg-slate-200 rounded-xl object-cover"
+            class="w-full h-96 bg-slate-200 rounded-xl object-cover outline outline-1 outline-slate-300"
             :src="blog.cover"
           />
           <br />

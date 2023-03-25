@@ -3,6 +3,7 @@ import { computed, onMounted, ref } from "vue";
 import { useRouter, useRoute } from "vue-router";
 import { getBlog } from "../composable/getBlogs";
 import { getTopics } from "../composable/getTopics";
+import { validate } from "../composable/validateWrite";
 
 const router = useRouter();
 const route = useRoute();
@@ -45,7 +46,6 @@ const editBlog = async () => {
       body: JSON.stringify(blog.value),
     });
 
-    const data = await res.json();
     console.log("Blog updated successfully");
     router.push("/");
   } catch (err) {
@@ -84,7 +84,11 @@ const previewImage = () => {
 const canPreview = computed(() => {
   if (typeof selectedBinaryFiles.value === "object") {
     previewImage();
-    console.log(previewSrc.value);
+    return true;
+  }
+  // if blog.cover is not empty, show the cover
+  if (blog.value.cover) {
+    previewSrc.value = blog.value.cover;
     return true;
   }
   return false;
@@ -102,31 +106,6 @@ const filteredTopics = computed(() => {
       return !blog.value.topics.includes(topic);
     });
 });
-
-// form validation function
-const validate = () => {
-  if (blog.value.title === "") {
-    alert("Please enter a title");
-    return false;
-  }
-  if (blog.value.content === "") {
-    alert("Please enter some content");
-    return false;
-  }
-  if (blog.value.topics.length === 0) {
-    alert("Please select at least one topic");
-    return false;
-  }
-  if (blog.value.author === "") {
-    alert("Please enter your name");
-    return false;
-  }
-  if (blog.value.date === "") {
-    alert("Please enter a date");
-    return false;
-  }
-  return true;
-};
 
 onMounted(() => {
   if (route.params.id) {
@@ -220,7 +199,7 @@ onMounted(() => {
           :key="key"
           :class="
             blog.topics.includes(topic)
-              ? 'bg-blue-500 text-white '
+              ? 'bg-blue-500 hover:bg-blue-600 text-white '
               : 'bg-slate-300 hover:bg-slate-400'
           "
           class="rounded-full px-3 py-1 duration-200"

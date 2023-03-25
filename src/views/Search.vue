@@ -1,20 +1,15 @@
 <script setup>
-import { computed, onMounted, ref, watch } from "vue";
+import { onMounted, ref, watch } from "vue";
 import { useRoute } from "vue-router";
 import Blog from "../components/Blog.vue";
-import { getBlog } from "../composable/getBlogs";
+import { getBlogsFromTitle } from "../composable/getBlogs";
 
 const route = useRoute();
 const searchTerm = ref(route.params.searchTerm);
 const blogs = ref([]);
 
-const fillteredBlogs = computed(() => {
-  return blogs.value.filter((blog) =>
-    blog.title.toLowerCase().includes(searchTerm.value.toLowerCase())
-  );
-});
 onMounted(async () => {
-  blogs.value = await getBlog();
+  blogs.value = await getBlogsFromTitle(searchTerm.value);
 });
 
 watch(
@@ -36,7 +31,7 @@ watch(
       <!-- Blog-list filtered by searchTerm -->
       <div>
         <Blog
-          v-for="(blog, key) in fillteredBlogs"
+          v-for="(blog, key) in blogs"
           :key="key"
           :blog="blog"
           :isList="true"
