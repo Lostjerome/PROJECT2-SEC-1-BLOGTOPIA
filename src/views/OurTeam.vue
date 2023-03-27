@@ -32,6 +32,7 @@ const toggleAddMember = () => {
 
 const addNewMember = async(member) => {
   member.img = previewSrc.value
+  if(!isItComplete()) return;
   try{
     const response = await fetch('http://localhost:5000/members',{
       method : 'POST',
@@ -87,6 +88,29 @@ const previewImage =  () => {
   }
 }
 
+const isItComplete = () => {
+  if(member.value.id === ""){
+    alert("Please enter your student id")
+    return false
+  }
+  if(member.value.name === ""){
+    alert("Please enter your name")
+    return false
+  }
+  // if(member.value.github === ""){
+  //   alert("Please enter your github url")
+  //   return false
+  // }
+  // if(member.value.ig === "") {
+  //   alert("Please enter your instagram")
+  //   return false
+  // }
+  if(member.value.img === "") {
+    alert("Please choose your image")
+    return false
+  }
+  return true
+}
 
 </script>
 <template>
