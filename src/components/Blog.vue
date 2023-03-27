@@ -1,19 +1,34 @@
 <script setup>
-import { useRoute, useRouter } from "vue-router";
+import { useRouter } from "vue-router";
+import { scrollToTop } from "../composable/scrollToTop";
+import EditIcon from "../components/icons/EditIcon.vue";
+import CloseIcon from "../components/icons/CloseIcon.vue";
 
-const route = useRoute();
 const router = useRouter();
 
-const changeRoute = () => {
+const goToBlog = () => {
   router.push(`/blog/${props.blog.id}`);
   scrollToTop();
 };
 
-const scrollToTop = () => {
-  window.scrollTo({
-    top: 0,
-    behavior: "smooth",
-  });
+const editBlog = (event) => {
+  event.stopPropagation();
+  router.push(`/write/${props.blog.id}`);
+  scrollToTop();
+};
+
+const deleteBlog = async (event) => {
+  event.stopPropagation();
+  try {
+    fetch(`http://localhost:5000/blogs/${props.blog.id}`, {
+      method: "DELETE",
+    });
+
+    console.log("Blog deleted successfully");
+    window.location.reload();
+  } catch (err) {
+    console.log(err.message);
+  }
 };
 
 const props = defineProps({
@@ -25,18 +40,13 @@ const props = defineProps({
     required: true,
   },
 });
-
-const editBlog = (event) => {
-  event.stopPropagation();
-  router.push(`/write/${props.blog.id}`);
-};
 </script>
 <template>
   <!-- blog -->
   <div>
     <button
-      @click="changeRoute"
-      class="text-start hover:bg-slate-200 rounded-xl duration-100 m-auto w-full p-3"
+      @click="goToBlog"
+      class="text-start hover:bg-slate-200 rounded-xl duration-200 m-auto w-full p-3"
       :class="isList == true ? '' : 'h-full '"
     >
       <div
@@ -63,7 +73,10 @@ const editBlog = (event) => {
           <!-- preview_content -->
           <div>
             <h1 class="font-bold mt-2 mb-2 text-base md:text-2xl">
-              {{ blog.title }}
+              {{
+                blog.title.substring(0, 40) +
+                (blog.title.length > 40 ? "..." : "")
+              }}
             </h1>
             <p class="break-words text-slate-400 text-sm md:text-base">
               {{
@@ -74,13 +87,19 @@ const editBlog = (event) => {
             </p>
           </div>
         </div>
-        <button
-          class="bg-blue-300 hover:bg-blue-500 duration-200"
-          @click="editBlog"
-          v-if="route.fullPath == '/all-blogs'"
-        >
-          Edit
-        </button>
+        <div class="">
+          <button
+            class="bg-blue-600 hover:bg-blue-700 duration-200 text-white fill-white text-sm rounded-full p-1"
+            @click="editBlog"
+          >
+            <EditIcon /></button
+          ><button
+            class="bg-red-600 hover:bg-red-700 duration-200 text-white fill-white text-sm rounded-full p-1"
+            @click="deleteBlog"
+          >
+            <CloseIcon />
+          </button>
+        </div>
       </div>
     </button>
   </div>

@@ -1,5 +1,5 @@
 // form validation function
-const validate = () => {
+const validate = (blog) => {
   if (blog.value.title === "") {
     alert("Please enter a title");
     return false;
