@@ -1,7 +1,7 @@
 <script setup>
 import githubLogo from './icons/SkillIconsGithubLight.vue'
 import instaLogo from './icons/LogosInstagramIcon.vue'
-
+import deleteIcon from './icons/IcBaselineDelete.vue'
 const props = defineProps({
         // name : {
         //     type : String,
@@ -26,7 +26,7 @@ const props = defineProps({
         }
     }
 )
-
+defineEmits(['delete'])
 </script>
  
 <template>
@@ -38,6 +38,8 @@ const props = defineProps({
         <div class="text-sm font-semibold text-[#000000b9] pb-1 border-b-2">
             {{ member.id }}
         </div>
+    <div class="flex flex-row items-center justify-between">
+
         <div class="flex place-items-center gap-2">
             <a :href="member.url.github" target="_blank">
                 <githubLogo class="text-2xl" />
@@ -46,6 +48,8 @@ const props = defineProps({
                 <instaLogo class="text-xl" />
             </a>
         </div>
+        <deleteIcon class="text-gray-400 hover:text-red-300" @click="$emit('delete', member.id )"/>
+    </div>
 
         <!-- <img :src="image" 
             class="flex object-cover h-64 w-72 rounded-lg" />
