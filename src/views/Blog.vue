@@ -1,50 +1,54 @@
 <script setup>
-import { ref, onMounted } from "vue";
+import { ref, onMounted, watch, computed } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import Blog from "../components/Blog.vue";
 import ArrowUp from "../components/icons/ArrowUp.vue";
-import { getBlog } from "../composable/getBlogs";
-const scrollToTop = () => {
-  window.scrollTo({
-    top: 0,
-    behavior: "smooth",
-  });
-};
+import { getBlog, getBlogsFromTopic } from "../composable/getBlogs";
+import { scrollToTop } from "../composable/scrollToTop";
 
 const route = useRoute();
 const router = useRouter();
+
+const blog = ref({});
+const suggestedBlogs = ref([]);
+const noBlogs = computed(() => suggestedBlogs.value.length === 0);
+
+const loadPage = async () => {
+  blog.value = await getBlog(route.params.id);
+  // fetct suggested blogs with all same topics
+  suggestedBlogs.value = await getBlogsFromTopic(blog.value.topics[0]);
+  suggestedBlogs.value = suggestedBlogs.value.filter(
+    (b) => b.id !== blog.value.id
+  );
+};
 
 const selectTopic = (topic) => {
   router.push(`/topic/${topic}`);
   scrollToTop();
 };
 
-// fetch blog from localhost:5000
-const blog = ref({});
-
-const textStyle = {
-  header: "text-2xl font-bold",
-  paragraph: "text-slate-400",
-  quote: "text-slate-400",
-  code: "text-slate-400",
-};
-
 onMounted(async () => {
-  blog.value = await getBlog(route.params.id);
-  console.log(blog.value);
+  loadPage();
 });
+
+watch(
+  () => route.params.id,
+  async () => {
+    loadPage();
+  }
+);
 </script>
 <template>
   <div class="p-5">
     <button
       @click="scrollToTop"
-      class="p-3 fixed bottom-5 right-5 rounded-full bg-blue-500 hover:bg-blue-600 duration-200 fill-white"
+      class="p-3 fixed bottom-5 right-5 rounded-full bg-blue-600 hover:bg-blue-700 duration-200 fill-white"
     >
       <ArrowUp class="w-7 h-7" />
     </button>
-    <div class="w-full max-w-6xl m-auto">
-      <div class="flex space-x-5">
-        <div class="w-1/3">
+    <div class="w-full max-w-4xl m-auto">
+      <div class="flex gap-5">
+        <div class="w-1/3 hidden md:block">
           <div class="sticky top-3 space-y-3">
             <div class="p-5 rounded-xl bg-slate-200 flex flex-col gap-2">
               <p class="font-bold">Topics</p>
@@ -52,7 +56,7 @@ onMounted(async () => {
                 v-for="(topic, key) in blog.topics"
                 :key="key"
                 @click="selectTopic(topic)"
-                class="bg-slate-300 hover:bg-slate-400 duration-200 rounded-full p-2 px-4 text-center w-fit text-xs"
+                class="bg-slate-300 hover:bg-slate-400 duration-200 rounded-full p-1 px-2 text-center w-fit text-xs"
               >
                 {{ topic }}
               </button>
@@ -61,7 +65,7 @@ onMounted(async () => {
         </div>
         <div class="rounded-xl w-full">
           <img
-            class="w-full h-96 bg-slate-200 rounded-xl object-cover"
+            class="w-full h-72 bg-slate-200 rounded-xl object-cover outline outline-1 outline-slate-300"
             :src="blog.cover"
           />
           <br />
@@ -72,9 +76,18 @@ onMounted(async () => {
           <p class="mb-5 whitespace-pre-line">
             {{ blog.content }}
           </p>
-          <p class="text-slate-400">{{ blog.date }}</p>
+          <p class="text-slate-400">
+            {{
+              // format date to Month Day, Year
+              new Date(blog.date).toLocaleDateString("en-US", {
+                month: "long",
+                day: "numeric",
+                year: "numeric",
+              })
+            }}
+          </p>
         </div>
-        <div class="w-1/3">
+        <div class="w-1/3 hidden md:block">
           <div class="sticky top-3 space-y-3">
             <div class="p-5 rounded-xl bg-slate-200">
               <p class="font-bold">Author</p>
@@ -84,15 +97,10 @@ onMounted(async () => {
         </div>
       </div>
 
-      <div class="w-full max-w-5xl m-auto">
-        <h1 class="text-2xl font-bold">Continue reading</h1>
-        <div class="grid grid-cols-3">
-          <!-- <Blog />
-          <Blog />
-          <Blog />
-          <Blog />
-          <Blog />
-          <Blog /> -->
+      <div v-if="!noBlogs" class="w-full max-w-5xl m-auto mt-16">
+        <h1 class="text-2xl font-bold mb-5">Continue reading</h1>
+        <div class="grid grid-cols-2 lg:grid-cols-3">
+          <Blog v-for="(blog, key) in suggestedBlogs" :key="key" :blog="blog" />
         </div>
       </div>
     </div>

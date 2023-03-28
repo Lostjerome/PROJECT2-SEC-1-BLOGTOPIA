@@ -1,8 +1,12 @@
 <script setup>
 import { computed, onMounted, ref } from "vue";
 import { useRouter, useRoute } from "vue-router";
+import CloseIcon from "../components/icons/CloseIcon.vue";
+import { addBlog } from "../composable/addBlog";
+import { editBlog } from "../composable/editBlog";
 import { getBlog } from "../composable/getBlogs";
 import { getTopics } from "../composable/getTopics";
+import { validate } from "../composable/validateWrite";
 
 const router = useRouter();
 const route = useRoute();
@@ -10,66 +14,38 @@ const blog = ref({});
 const isEditting = ref(route.params.id);
 const topics = ref([]);
 
-const addBlog = async () => {
+const onPublish = () => {
   blog.value.date = new Date().toISOString().slice(0, 10);
   blog.value.cover = previewSrc.value;
-  if (!validate()) return;
-  validate();
-  try {
-    const res = await fetch(`http://localhost:5000/blogs`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(blog.value),
-    });
+};
 
-    const data = await res.json();
-    console.log("Blog added successfully");
-    router.push("/");
+const add = async () => {
+  onPublish();
+  if (!validate(blog)) return;
+  try {
+    const data = await addBlog(blog.value);
+    router.push(`/blog/${data.id}`);
   } catch (err) {
     console.log(err.message);
   }
 };
 
-const editBlog = async () => {
-  blog.value.date = new Date().toISOString().slice(0, 10);
-  blog.value.cover = previewSrc.value;
-  if (!validate()) return;
+const edit = async () => {
+  onPublish();
+  if (!validate(blog)) return;
   try {
-    const res = await fetch(`http://localhost:5000/blogs/${route.params.id}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(blog.value),
-    });
-
-    const data = await res.json();
-    console.log("Blog updated successfully");
-    router.push("/");
+    const data = await editBlog(route.params.id, blog.value);
+    router.push(`/blog/${data.id}`);
   } catch (err) {
     console.log(err.message);
-  }
-};
-
-const chooseTopic = (topic) => {
-  if (blog.value.topics.includes(topic)) {
-    blog.value.topics = blog.value.topics.filter((t) => t !== topic);
-  } else {
-    blog.value.topics.push(topic);
   }
 };
 
 const selectedBinaryFiles = ref("");
-
+const previewSrc = ref("");
 const chooseBinaryFile = (e) => {
   selectedBinaryFiles.value = e.target.files[0];
-  console.log(selectedBinaryFiles.value);
 };
-
-const previewSrc = ref("");
-
 const previewImage = () => {
   const reader = new FileReader();
   reader.readAsDataURL(selectedBinaryFiles.value);
@@ -80,59 +56,42 @@ const previewImage = () => {
     console.log("Error: ", error);
   };
 };
-
 const canPreview = computed(() => {
   if (typeof selectedBinaryFiles.value === "object") {
     previewImage();
-    console.log(previewSrc.value);
+    return true;
+  }
+  if (blog.value.cover) {
+    previewSrc.value = blog.value.cover;
     return true;
   }
   return false;
 });
 
-const filterWord = ref("");
-
-// filter topics by filterWord and exclude already selected topics
+const filteredTopicWord = ref("");
 const filteredTopics = computed(() => {
   return topics.value
     .filter((topic) => {
-      return topic.toLowerCase().includes(filterWord.value.toLowerCase());
+      return topic
+        .toLowerCase()
+        .includes(filteredTopicWord.value.toLowerCase());
     })
     .filter((topic) => {
       return !blog.value.topics.includes(topic);
     });
 });
-
-// form validation function
-const validate = () => {
-  if (blog.value.title === "") {
-    alert("Please enter a title");
-    return false;
+const chooseTopic = (topic) => {
+  if (blog.value.topics.includes(topic)) {
+    blog.value.topics = blog.value.topics.filter((t) => t !== topic);
+  } else {
+    blog.value.topics.push(topic);
   }
-  if (blog.value.content === "") {
-    alert("Please enter some content");
-    return false;
-  }
-  if (blog.value.topics.length === 0) {
-    alert("Please select at least one topic");
-    return false;
-  }
-  if (blog.value.author === "") {
-    alert("Please enter your name");
-    return false;
-  }
-  if (blog.value.date === "") {
-    alert("Please enter a date");
-    return false;
-  }
-  return true;
 };
 
-onMounted(() => {
+onMounted(async () => {
   if (route.params.id) {
-    getBlog(route.params.id).then((res) => {
-      blog.value = res;
-    });
+    const res = await getBlog(route.params.id);
+    blog.value = res;
   } else {
     blog.value = {
       title: "",
@@ -143,15 +102,15 @@ onMounted(() => {
       date: "",
     };
   }
-  getTopics().then((res) => {
-    topics.value = res;
-  });
+
+  let res = await getTopics();
+  topics.value = res;
 });
 </script>
 <template>
   <div class="bg-white drop-shadow-md sticky top-0 w-full">
     <div
-      class="flex items-center justify-between w-full max-w-6xl px-3 py-5 mx-auto lg:px-4"
+      class="flex items-center justify-between w-full max-w-4xl px-3 py-5 mx-auto lg:px-4"
     >
       <div class="flex items-center">
         <router-link to="/" class="flex">
@@ -161,10 +120,10 @@ onMounted(() => {
         </router-link>
       </div>
       <button
-        @click="isEditting ? editBlog() : addBlog()"
-        class="px-5 py-2 bg-blue-700 hover:bg-blue-800 duration-200 text-white rounded-full"
+        @click="isEditting ? edit() : add()"
+        class="px-5 py-2 bg-blue-600 hover:bg-blue-700 duration-200 text-white rounded-full"
       >
-        publish
+        Publish
       </button>
     </div>
   </div>
@@ -178,7 +137,7 @@ onMounted(() => {
           v-show="canPreview"
           :src="previewSrc"
           alt="preview"
-          class="w-full h-96 object-cover rounded-xl"
+          class="w-full h-96 object-cover rounded-xl outline outline-1 outline-gray-300"
         />
       </label>
       <input
@@ -213,20 +172,15 @@ onMounted(() => {
         v-model="blog.author"
       />
 
-      <p>Select topic</p>
+      <p class="font-bold">Select topics</p>
       <div class="flex flex-wrap gap-2">
         <button
           v-for="(topic, key) in blog.topics"
           :key="key"
-          :class="
-            blog.topics.includes(topic)
-              ? 'bg-blue-500 text-white '
-              : 'bg-slate-300 hover:bg-slate-400'
-          "
-          class="rounded-full px-3 py-1 duration-200"
+          class="rounded-full pr-3 pl-2 py-1 duration-200 flex gap-1 items-center bg-blue-600 hover:bg-blue-700 text-white fill-white"
           @click="chooseTopic(topic)"
         >
-          {{ topic }}
+          <close-icon /> {{ topic }}
         </button>
       </div>
       <div
@@ -241,12 +195,7 @@ onMounted(() => {
         <button
           v-for="(topic, key) in filteredTopics"
           :key="key"
-          :class="
-            blog.topics.includes(topic)
-              ? 'bg-blue-500 text-white '
-              : 'bg-slate-300 hover:bg-slate-400'
-          "
-          class="rounded-full px-3 py-1 duration-200"
+          class="bg-slate-300 hover:bg-slate-400 rounded-full px-3 py-1 duration-200"
           @click="chooseTopic(topic)"
         >
           {{ topic }}
