@@ -1,29 +1,31 @@
-# PROJECT2-SEC-1-BLOGTOPIA
+# Blogtopia - A Blogging Paradise
 
-This template should help get you started developing with Vue 3 in Vite.
+Blogtopia is a powerful, user-friendly, and customizable blogging platform that enables bloggers to easily create and publish their content online. With Blogtopia, you can create a professional-looking blog without any prior technical experience.
 
-## Recommended IDE Setup
+[![Tech stack](https://skillicons.dev/icons?i=vue,tailwind)](https://skillicons.dev)
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+## Features
 
-## Customize configuration
+- A user-friendly interface with a responsive design.
 
-See [Vite Configuration Reference](https://vitejs.dev/config/).
+## Getting started
 
-## Project Setup
+### 1. Title
 
-```sh
-npm install
-```
+Description
 
-### Compile and Hot-Reload for Development
+## Members
 
-```sh
-npm run dev
-```
+- [@sealbb](https://www.github.com/sealbb) 64130500013 Chonticha Li *(20%)*
 
-### Compile and Minify for Production
+- [@lostjerome](https://www.github.com/lostjerome) 64130500017 Naronkrach Tanajarusawas *(20%)*
 
-```sh
-npm run build
-```
+- [@bamxxls](https://www.github.com/bamxxls) 64130500026 Thaksaporn Lachaisong *(20%)*
+
+- [@CRYINGV](https://www.github.com/CRYINGV) 64130500030 Thanaphat Julmeewong *(20%)*
+
+- [@darKKOREO](https://www.github.com/darKKOREO) 64130500031 Tanapat Daoloy *(20%)*
+
+
+
+

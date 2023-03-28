@@ -1,56 +1,44 @@
 <script setup>
 import Blog from "../components/Blog.vue";
-import { getBlog } from "../composable/getBlogs";
-import { getTopics } from "../composable/getTopics";
-import { ref, onMounted, computed } from "vue";
-import { useRouter } from "vue-router";
+import { getBlogsPaginated, getRecommendedBlogs } from "../composable/getBlogs";
+import { ref, onMounted } from "vue";
+import Topics from "../components/Topics.vue";
 
 const blogs = ref([]);
-const topics = ref([]);
-const router = useRouter();
-const recommendedBlog = computed(() => {
-  return blogs.value.slice(0, 3);
-});
+const suggestSection = ref(null);
+const currPage = ref(1);
+const recommendedBlogs = ref([]);
 
-const blogSection = ref(null);
-
-const scrollToTop = () => {
-  window.scrollTo({
-    top: 0,
-    behavior: "smooth",
-  });
+const loadMore = async () => {
+  currPage.value++;
+  const res = await getBlogsPaginated(currPage.value, 6);
+  blogs.value = [...blogs.value, ...res];
 };
 
 const scrollToBlogSection = () => {
-  blogSection.value.scrollIntoView({
+  suggestSection.value.scrollIntoView({
     behavior: "smooth",
   });
 };
-const selectTopic = (topic) => {
-  router.push(`/topic/${topic}`);
-  scrollToTop();
-};
 
 onMounted(async () => {
-  blogs.value = await getBlog();
-  topics.value = await getTopics();
+  blogs.value = await getBlogsPaginated(currPage.value, 6);
+  recommendedBlogs.value = await getRecommendedBlogs();
 });
 </script>
 <template>
   <div class="w-full">
     <div class="min-h-screen grid place-items-center">
-      <div class="md:bg-slate-200 grid place-items-center w-full p-10">
-        <div
-          class="grid md:grid-cols-2 content-center h-full items-center max-w-5xl w-full p-3"
-        >
-          <div class="flex flex-col space-y-6 my-10">
-            <h1 class="text-5xl font-bold">A Blogging Paradise</h1>
-            <p class="break-words w-3/4">
+      <div class="cover bg-slate-200 grid place-items-center w-full p-2">
+        <div class="content-center w-full h-full items-center max-w-4xl p-3">
+          <div class="flex flex-col space-y-6 my-10 text-white">
+            <h1 class="text-3xl md:text-5xl font-bold">A Blogging Paradise</h1>
+            <p class="text-sm md:text-base">
               Unleash your creativity and connect with like minded individuals.
             </p>
             <div>
               <button
-                class="bg-blue-600 py-2 px-5 rounded-full text-white font-semibold"
+                class="bg-blue-600 hover:bg-blue-700 duration-200 py-2 px-4 md:py-2 text-sm md:text-base rounded-full text-white font-bold"
                 @click="scrollToBlogSection"
               >
                 Explore Blogs
@@ -59,41 +47,43 @@ onMounted(async () => {
           </div>
         </div>
       </div>
-      <div class="pt-7 max-w-5xl w-full hidden md:block" ref="blogSection">
+      <div class="pt-7 max-w-4xl w-full hidden lg:block" ref="suggestSection">
         <h1 class="text-3xl font-bold text-start">Suggested blogs for you</h1>
-        <div class="max-w-5xl w-full grid grid-cols-3 my-10">
+        <div class="grid grid-cols-3 my-10">
           <Blog
-            v-for="(blog, key) in recommendedBlog"
+            v-for="(blog, key) in recommendedBlogs"
             :key="key"
             :blog="blog"
           />
         </div>
       </div>
-      <div class="flex md:flex-row flex-col-reverse max-w-5xl md:mt-20 w-full">
-        <div class="flex flex-col gap-2">
+      <div class="flex lg:flex-row flex-col-reverse max-w-4xl w-full lg:mt-5">
+        <div class="flex flex-col">
           <Blog
             v-for="(blog, key) in blogs"
             :key="key"
             :blog="blog"
             :isList="true"
           />
-        </div>
-        <div class="md:mx-3">
-          <div class="md:bg-slate-200 rounded-2xl md:p-6 w-full">
-            <h2 class="font-bold text-xl mb-4">Recommended topics</h2>
-            <div class="flex md:flex-wrap gap-2 items-center">
-              <button
-                class="bg-slate-300 rounded-full p-2 px-4 text-center text-xs hover:bg-slate-400 duration-200"
-                v-for="(topic, key) in topics"
-                :key="key"
-                @click="selectTopic(topic)"
-              >
-                {{ topic }}
-              </button>
-            </div>
+          <div class="flex justify-center">
+            <button
+              class="bg-blue-600 hover:bg-blue-700 duration-200 py-2 px-5 rounded-full text-white font-semibold my-5"
+              @click="loadMore"
+            >
+              Load More
+            </button>
           </div>
         </div>
+        <Topics />
       </div>
     </div>
   </div>
 </template>
+<style>
+.cover {
+  background-image: url(../assets/image/cover.jpeg);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+</style>

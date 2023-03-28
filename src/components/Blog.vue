@@ -1,19 +1,34 @@
 <script setup>
-import { useRoute, useRouter } from "vue-router";
+import { useRouter } from "vue-router";
+import { scrollToTop } from "../composable/scrollToTop";
+import EditIcon from "../components/icons/EditIcon.vue";
+import CloseIcon from "../components/icons/CloseIcon.vue";
 
-const route = useRoute();
 const router = useRouter();
 
-const changeRoute = () => {
+const goToBlog = () => {
   router.push(`/blog/${props.blog.id}`);
   scrollToTop();
 };
 
-const scrollToTop = () => {
-  window.scrollTo({
-    top: 0,
-    behavior: "smooth",
-  });
+const editBlog = (event) => {
+  event.stopPropagation();
+  router.push(`/write/${props.blog.id}`);
+  scrollToTop();
+};
+
+const deleteBlog = async (event) => {
+  event.stopPropagation();
+  try {
+    fetch(`http://localhost:5000/blogs/${props.blog.id}`, {
+      method: "DELETE",
+    });
+
+    console.log("Blog deleted successfully");
+    window.location.reload();
+  } catch (err) {
+    console.log(err.message);
+  }
 };
 
 const props = defineProps({
@@ -25,61 +40,67 @@ const props = defineProps({
     required: true,
   },
 });
-
-const editBlog = (event) => {
-  event.stopPropagation();
-  router.push(`/write/${props.blog.id}`);
-};
 </script>
 <template>
   <!-- blog -->
-  <button
-    @click="changeRoute"
-    class="text-start hover:bg-slate-200 rounded-xl duration-100 m-auto p-3"
-    :class="isList == true ? '' : 'h-full'"
-  >
-    <div
-      class="flex rounded-2xl h-full"
-      :class="isList == true ? 'flex-rows' : 'flex-col'"
+  <div>
+    <button
+      @click="goToBlog"
+      class="text-start hover:bg-slate-200 rounded-xl duration-200 m-auto w-full p-3"
+      :class="isList == true ? '' : 'h-full '"
     >
-      <!-- image -->
-      <div class="w-80">
+      <div
+        class="flex rounded-2xl h-full"
+        :class="isList == true ? 'flex-rows' : 'flex-col gap-3 mb-5'"
+      >
+        <!-- image -->
         <img
           :src="blog.cover"
-          class="rounded-lg bg-slate-300 outline outline-1 outline-slate-300 w-full h-52 object-cover"
+          :class="isList == true ? 'max-w-[13rem] md:max-w-[18rem]' : ''"
+          class="h-32 md:h-48 rounded-lg bg-slate-300 outline outline-1 outline-slate-300 w-full object-cover"
         />
-      </div>
 
-      <!-- content_blog -->
-      <div class="w-80 my-5" :class="isList == true ? 'ml-3 mb-4' : ''">
-        <!-- profile -->
-        <div class="flex flex-rows">
-          <!-- username&date_to_post -->
-          <h2 class="mr-1">{{ blog.author }}</h2>
-          <h2 class="text-slate-400">{{ blog.date }}</h2>
+        <!-- content_blog -->
+        <div :class="isList == true ? 'ml-3' : ''" class="w-full">
+          <!-- profile -->
+          <div class="flex flex-rows">
+            <!-- username&date_to_post -->
+            <p class="text-xs md:text-sm">
+              <span class="mr-1">{{ blog.author }}</span>
+              <span class="text-slate-400">{{ blog.date }}</span>
+            </p>
+          </div>
+          <!-- preview_content -->
+          <div>
+            <h1 class="font-bold mt-2 mb-2 text-base md:text-2xl">
+              {{
+                blog.title.substring(0, 40) +
+                (blog.title.length > 40 ? "..." : "")
+              }}
+            </h1>
+            <p class="break-words text-slate-400 text-sm md:text-base">
+              {{
+                // limit the length of the preview content to 100 characters
+                blog.content.substring(0, 100) +
+                (blog.content.length > 100 ? "..." : "")
+              }}
+            </p>
+          </div>
         </div>
-        <!-- preview_content -->
-        <div>
-          <h1 class="font-bold mt-2 mb-2 text-2xl">{{ blog.title }}</h1>
-          <p
-            class="break-words text-slate-400"
-            :class="isList == true ? 'pr-3' : ''"
+        <div class="">
+          <button
+            class="bg-blue-600 hover:bg-blue-700 duration-200 text-white fill-white text-sm rounded-full p-1"
+            @click="editBlog"
           >
-            {{
-              // limit the length of the preview content to 100 characters
-              blog.content.substring(0, 100) +
-              (blog.content.length > 100 ? "..." : "")
-            }}
-          </p>
+            <EditIcon /></button
+          ><button
+            class="bg-red-600 hover:bg-red-700 duration-200 text-white fill-white text-sm rounded-full p-1"
+            @click="deleteBlog"
+          >
+            <CloseIcon />
+          </button>
         </div>
       </div>
-      <button
-        class="bg-blue-300 hover:bg-blue-500 duration-200"
-        @click="editBlog"
-        v-if="route.fullPath == '/all-blogs'"
-      >
-        Edit
-      </button>
-    </div>
-  </button>
+    </button>
+  </div>
 </template>
