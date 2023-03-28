@@ -34,6 +34,7 @@ const toggleAddMember = () => {
 // Add member
 const addNewMember = async () => {
   member.value.img = previewSrc.value
+  console.log(member.value.name)
   if (!isItComplete()) return;
   (isItComplete())
   try{
@@ -56,6 +57,7 @@ const addNewMember = async () => {
     const addedMember = await response.json()	// add backend เสร็จ ถึงไป add ใน frontend
     members.value.push(addedMember)
     console.log(members.value)
+    toggleAddMember()
   }
   catch (error) {
     console.log(error.m)
@@ -102,11 +104,11 @@ const checkBeforeDelete = (id) => {
 
 // Check form input
 const isItComplete = () => {
-  if(member.value.name === ""){
+  if(member.value.name === undefined){
     alert("Please enter your name")
     return false
   }
-  if(member.value.img === "") {
+  else if(member.value.img === "") {
     alert("Please choose your image")
     return false
   }
@@ -179,7 +181,7 @@ const isItComplete = () => {
         <div class="my-5 flex justify-between">
           <button 
           class="py-1 px-5 text-sm font-semibold bg-blue-700 hover:bg-blue-800 text-white hover: rounded-full"
-          @click="addNewMember(), toggleAddMember()">            
+          @click="addNewMember()">            
           Add
           </button>
           <button 
