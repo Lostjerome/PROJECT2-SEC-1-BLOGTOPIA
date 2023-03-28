@@ -23,10 +23,7 @@ const add = async () => {
   onPublish();
   if (!validate(blog)) return;
   try {
-    const res = await addBlog(blog.value);
-    const data = await res.json();
-
-    console.log("Blog added successfully");
+    const data = await addBlog(blog.value);
     router.push(`/blog/${data.id}`);
   } catch (err) {
     console.log(err.message);
@@ -37,10 +34,7 @@ const edit = async () => {
   onPublish();
   if (!validate(blog)) return;
   try {
-    const res = await editBlog(route.params.id, blog.value);
-    const data = await res.json();
-
-    console.log("Blog updated successfully");
+    const data = await editBlog(route.params.id, blog.value);
     router.push(`/blog/${data.id}`);
   } catch (err) {
     console.log(err.message);

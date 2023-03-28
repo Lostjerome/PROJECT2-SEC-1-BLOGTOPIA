@@ -29,8 +29,8 @@ onMounted(async () => {
 <template>
   <div class="w-full">
     <div class="min-h-screen grid place-items-center">
-      <div class="cover bg-slate-200 grid place-items-center w-full p-2">
-        <div class="content-center w-full h-full items-center max-w-4xl p-3">
+      <div class="cover bg-slate-200 grid place-items-center w-full p-16">
+        <div class="content-center w-full h-full items-center max-w-4xl">
           <div class="flex flex-col space-y-6 my-10 text-white">
             <h1 class="text-3xl md:text-5xl font-bold">A Blogging Paradise</h1>
             <p class="text-sm md:text-base">

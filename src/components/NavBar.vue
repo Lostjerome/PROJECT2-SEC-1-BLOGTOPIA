@@ -2,6 +2,7 @@
 import { onMounted, ref, watch } from "vue";
 import { useRouter } from "vue-router";
 import AddIcon from "./icons/AddIcon.vue";
+import GlobeIcon from "./icons/GlobeIcon.vue";
 import SearchIcon from "./icons/SearchIcon.vue";
 
 const router = useRouter();
@@ -44,8 +45,10 @@ watch(
         <div class="flex items-center justify-between">
           <div class="flex">
             <router-link to="/" class="flex">
-              <span class="self-center text-3xl font-bold whitespace-nowrap"
-                >Blogtopia</span
+              <span
+                class="self-center text-3xl font-bold whitespace-nowrap flex items-center gap-1"
+              >
+                <GlobeIcon class="w-8 h-8" /> Blogtopia</span
               >
             </router-link>
             <div class="ml-5 w-full">
