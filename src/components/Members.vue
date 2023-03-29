@@ -1,8 +1,9 @@
 <script setup>
-import githubLogo from './icons/SkillIconsGithubLight.vue'
-import instaLogo from './icons/LogosInstagramIcon.vue'
-import deleteIcon from './icons/IcBaselineDelete.vue'
+import githubLogo from "./icons/SkillIconsGithubLight.vue";
+import instaLogo from "./icons/LogosInstagramIcon.vue";
+import deleteIcon from "./icons/IcBaselineDelete.vue";
 const props = defineProps({
+
         member : {
             type : Object,
             required : true
@@ -33,8 +34,5 @@ defineEmits(['delete'])
     </div>
     <deleteIcon class="text-gray-400 hover:text-red-300" @click="$emit('delete', member.id )"/>
     </div>
-</template>
- 
-<style scoped>
 
-</style>
+</template>
