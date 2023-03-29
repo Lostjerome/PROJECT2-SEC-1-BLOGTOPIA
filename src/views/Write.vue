@@ -2,6 +2,7 @@
 import { computed, onMounted, ref } from "vue";
 import { useRouter, useRoute } from "vue-router";
 import CloseIcon from "../components/icons/CloseIcon.vue";
+import GlobeIcon from "../components/icons/GlobeIcon.vue";
 import { addBlog } from "../composable/addBlog";
 import { editBlog } from "../composable/editBlog";
 import { getBlog } from "../composable/getBlogs";
@@ -114,8 +115,10 @@ onMounted(async () => {
     >
       <div class="flex items-center">
         <router-link to="/" class="flex">
-          <span class="self-center text-3xl font-bold whitespace-nowrap"
-            >Blogtopia</span
+          <span
+            class="self-center text-3xl font-bold whitespace-nowrap flex items-center gap-1"
+          >
+            <GlobeIcon class="w-8 h-8" /> Blogtopia</span
           >
         </router-link>
       </div>

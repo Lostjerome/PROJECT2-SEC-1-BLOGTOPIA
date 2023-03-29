@@ -23,10 +23,10 @@ watch(
 <template>
   <!-- body -->
 
-  <div class="mt-4 max-w-6xl m-auto">
+  <div class="mt-4 max-w-4xl m-auto">
     <h1 class="font-bold text-3xl text-gray-500 ml-4 mt-10">
-      {{ fillteredBlogs.length===0?'No result for':'Result for' }} <span class="text-black">{{ searchTerm }}</span>
-
+      {{ !fillteredBlogs ? "No result for" : "Result for" }}
+      <span class="text-black">{{ searchTerm }}</span>
     </h1>
     <!-- content -->
     <div class="flex flex-rows mt-7">
