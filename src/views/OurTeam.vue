@@ -221,7 +221,7 @@ const isItComplete = () => {
 
     <!-- Meet our Team -->
     <div>
-      <div class="flex max-w-6xl m-auto">
+      <div class="flex max-w-4xl m-auto">
         <div>
           <div class="flex justify-between">
             <div class="text-3xl font-bold ml-10 mt-6">

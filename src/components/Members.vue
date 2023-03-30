@@ -17,8 +17,8 @@ defineEmits(['delete','edit'])
 <template>
 <div>
     <img :src="member.img" 
-        class="flex object-cover h-64 w-72 rounded-lg" />
-    <div class="text-base font-semibold uppercase pt-2">
+        class="flex object-cover h-52 w-52 rounded-lg" />
+    <div class="text-sm font-semibold uppercase pt-2">
         {{ member.name }}
     </div> 
     <div class="text-sm font-semibold text-[#000000b9] pb-1 border-b-2">
