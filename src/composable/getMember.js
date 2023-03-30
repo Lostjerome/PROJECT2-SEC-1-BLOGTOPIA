@@ -1,6 +1,7 @@
-const getMember = async() => {
+const getMember = async(id) => {
     try{
-        const response = await fetch('http://localhost:5000/members')
+        const idParam = id ? `/${id}` : "";
+        const response = await fetch(`http://localhost:5000/members/${idParam}`)
         if(response.ok){
             const members = await response.json()
             return members
