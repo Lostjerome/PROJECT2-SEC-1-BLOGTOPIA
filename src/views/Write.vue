@@ -191,7 +191,7 @@ onMounted(async () => {
       >
         <input
           type="text"
-          v-model="filterWord"
+          v-model="filteredTopicWord"
           class="w-full rounded-lg outline-none p-2"
           placeholder="Search topics"
         />
