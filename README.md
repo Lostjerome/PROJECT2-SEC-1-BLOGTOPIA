@@ -1,12 +1,22 @@
 # Blogtopia - A Blogging Paradise
 
-Blogtopia is a powerful, user-friendly, and customizable blogging platform that enables bloggers to easily create and publish their content online. With Blogtopia, you can create a professional-looking blog without any prior technical experience.
+Blogtopia is a powerful, user-friendly, and customizable blogging platform that enables bloggers to easily create and publish their content. With Blogtopia, you can create a professional-looking blog without any prior technical experience.
 
 [![Tech stack](https://skillicons.dev/icons?i=vue,tailwind)](https://skillicons.dev)
 
+![image](https://user-images.githubusercontent.com/88102079/229190671-26b1bfd3-93a7-4eeb-a083-5cb6dea64f11.png)
+
 ## Features
 
-- A user-friendly interface with a responsive design.
+- Blog creation: Users should be able to create a new blog post by providing a title, description, and the main content of the blog.
+
+- Blog editing: Users should be able to edit their blog posts after they have been published. This would involve modifying the title, description, and content of the post.
+
+- Blog deletion: Users should be able to delete their blog posts if they wish to remove them from the application.
+
+- Blog search: Users should be able to search for blogs using keywords, or tipics.
+
+- Categorization: Users should be able to categorize their blog posts based on topics or themes.
 
 ## Getting started
 
