@@ -4,7 +4,6 @@ import instaLogo from "./icons/LogosInstagramIcon.vue";
 import deleteIcon from "./icons/IcBaselineDelete.vue";
 import editIcon from './icons/MaterialSymbolsEdit.vue'
 const props = defineProps({
-
         member : {
             type : Object,
             required : true
@@ -22,7 +21,7 @@ defineEmits(['delete','edit'])
         {{ member.name }}
     </div> 
     <div class="text-sm font-semibold text-[#000000b9] pb-1 border-b-2">
-        {{ member.id }}
+        {{ member.stdId }}
         </div>
    <!-- All-icons -->
     <div class="flex flex-row items-center justify-between">
