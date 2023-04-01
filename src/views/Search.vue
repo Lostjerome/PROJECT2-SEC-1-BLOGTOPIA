@@ -42,7 +42,6 @@ watch(
       </div>
 
       <!-- Recommended topics -->
-      <!-- Pui's code -->
       <Topics />
     </div>
   </div>

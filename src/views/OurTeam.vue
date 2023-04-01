@@ -1,41 +1,41 @@
 <script setup>
-import { onMounted, ref, computed } from "vue";
-import Member from "../components/Members.vue";
-import getMember from "../composable/getMember";
-import AddMemberIcon from "../components/icons/MaterialSymbolsPersonAddRounded.vue";
-import { deleteMembers } from "../composable/deleteMembers.js";
+import { onMounted, ref, computed } from "vue"
+import Member from "../components/Members.vue"
+import getMember from "../composable/getMember"
+import AddMemberIcon from "../components/icons/MaterialSymbolsPersonAddRounded.vue"
+import { deleteMembers } from "../composable/deleteMembers.js"
 
-const itsEdit = ref(false);
-const members = ref([]);
-const member = ref({});
+const itsEdit = ref(false)
+const members = ref([])
+const member = ref({})
 
 //  input id from editMember(id from emits)
-const targetMemberId = ref();
+const targetMemberId = ref()
 
 onMounted(async () => {
-  members.value = await getMember();
+  members.value = await getMember()
   member.value = {
     stdId: "",
     name: "",
     github: "",
     ig: "",
     img: "",
-  };
-});
+  }
+})
 
 // Btn
-const setAddMember = ref(false);
+const setAddMember = ref(false)
 const toggleAddMember = () => {
-  setAddMember.value = !setAddMember.value;
-  selectedBinaryFile.value = "";
-  previewSrc.value = "";
-  member.value = {};
-  itsEdit.value = false;
-};
+  setAddMember.value = !setAddMember.value
+  selectedBinaryFile.value = ""
+  previewSrc.value = ""
+  member.value = {}
+  itsEdit.value = false
+}
 
 // Add member
 const addNewMember = async () => {
-  member.value.img = previewSrc.value;
+  member.value.img = previewSrc.value
   const objectMember = {
     id: `${members.value.length + 1}`,
     stdId: member.value.stdId,
@@ -45,97 +45,97 @@ const addNewMember = async () => {
       ig: member.value.ig,
     },
     img: member.value.img,
-  };
-  if (!isItComplete()) return;
-  isItComplete();
+  }
+  if (!isItComplete()) return
+  isItComplete()
 
   try {
     const urlPath =
       itsEdit.value === true
         ? `http://localhost:5000/members/${targetMemberId.value}`
-        : "http://localhost:5000/members";
-    const response = await fetch(urlPath, {
+        : "http://localhost:5000/members"
+    fetch(urlPath, {
       method: itsEdit.value === true ? "PUT" : "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(objectMember),
-    });
-    console.log("add successfully");
-    members.value = await getMember();
-    itsEdit.value = false;
-    toggleAddMember();
+    })
+    console.log("add successfully")
+    members.value = await getMember()
+    itsEdit.value = false
+    toggleAddMember()
   } catch (error) {
-    console.log(error);
+    console.log(error)
   }
-};
+}
 
 // Select image
-const selectedBinaryFile = ref("");
-const previewSrc = ref("");
+const selectedBinaryFile = ref("")
+const previewSrc = ref("")
 
 const chooseBinaryFile = (e) => {
-  selectedBinaryFile.value = e.target.files[0];
-};
+  selectedBinaryFile.value = e.target.files[0]
+}
 
 const canPreview = computed(() => {
   if (previewSrc.value !== "") {
-    return true;
+    return true
   } else if (typeof selectedBinaryFile.value === "object") {
-    previewImage();
-    return true;
+    previewImage()
+    return true
   }
-  return false;
-});
+  return false
+})
 
 const previewImage = () => {
-  const reader = new FileReader();
-  reader.readAsDataURL(selectedBinaryFile.value);
+  const reader = new FileReader()
+  reader.readAsDataURL(selectedBinaryFile.value)
   reader.onload = () => {
-    previewSrc.value = reader.result;
-  };
+    previewSrc.value = reader.result
+  }
   reader.onerror = (error) => {
-    console.log("Error: ", error);
-  };
-};
+    console.log("Error: ", error)
+  }
+}
 
 // getData-member from id
 const editMember = async (id) => {
-  targetMemberId.value = id;
-  itsEdit.value = true;
-  setAddMember.value = !setAddMember.value;
-  const getDataMember = await getMember(id);
+  targetMemberId.value = id
+  itsEdit.value = true
+  setAddMember.value = !setAddMember.value
+  const getDataMember = await getMember(id)
 
-  previewSrc.value = getDataMember.img;
-  member.value.stdId = getDataMember.stdId;
-  member.value.name = getDataMember.name;
-  member.value.github = getDataMember.url.github;
-  member.value.ig = getDataMember.url.ig;
-};
+  previewSrc.value = getDataMember.img
+  member.value.stdId = getDataMember.stdId
+  member.value.name = getDataMember.name
+  member.value.github = getDataMember.url.github
+  member.value.ig = getDataMember.url.ig
+}
 
 // Delete member
 const checkBeforeDelete = (id) => {
-  const confirmDelete = confirm("Are you sure you want to delete this member?");
+  const confirmDelete = confirm("Are you sure you want to delete this member?")
   if (confirmDelete) {
-    deleteMembers(id);
-    members.value = members.value.filter((member) => member.id !== id);
+    deleteMembers(id)
+    members.value = members.value.filter((member) => member.id !== id)
   }
-};
+}
 
 // Check form input
 const isItComplete = () => {
   if (member.value.stdId === undefined) {
-    alert("Please enter your student ID!!");
-    return false;
+    alert("Please enter your student ID!!")
+    return false
   } else if (member.value.name === undefined) {
-    alert("Please enter your name!!");
-    return false;
+    alert("Please enter your name!!")
+    return false
   } else if (member.value.img === "") {
-    alert("Please choose your image!!");
-    return false;
+    alert("Please choose your image!!")
+    return false
   }
-  return true;
-};
+  return true
+}
 </script>
 <template>
   <!-- Form Add Member -->
