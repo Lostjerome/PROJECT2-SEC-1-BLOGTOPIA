@@ -15,7 +15,7 @@ const targetMemberId = ref();
 onMounted(async () => {
   members.value = await getMember();
   member.value = {
-    stdId: "",
+    id: "",
     name: "",
     github: "",
     ig: "",
@@ -55,7 +55,7 @@ const addNewMember = async () => {
       itsEdit.value === true
         ? `http://localhost:5000/members/${targetMemberId.value}`
         : "http://localhost:5000/members";
-    fetch(urlPath, {
+    const response = await fetch(urlPath, {
       method: itsEdit.value === true ? "PUT" : "POST",
       headers: {
         "Content-Type": "application/json",
@@ -113,8 +113,7 @@ const editMember = async (id) => {
   const getDataMember = await getMember(id);
 
   previewSrc.value = getDataMember.img;
-  member.value.stdId = getDataMember.stdId;
-  member.value.name = getDataMember.name;
+  member.value = getDataMember;
   member.value.github = getDataMember.url.github;
   member.value.ig = getDataMember.url.ig;
 };
@@ -137,7 +136,7 @@ const isItComplete = () => {
     alert("Please enter your name!!");
     return false;
   } else if (member.value.img === "") {
-    alert("Please choose your image!!");
+    alert("Please choose your image");
     return false;
   }
   return true;
@@ -183,7 +182,7 @@ const isItComplete = () => {
           <input
             type="text"
             placeholder="64xxxxxxxxx"
-            v-model="member.stdId"
+            v-model="member.id"
             class="border rounded-md px-3 w-full placeholder:text-xs placeholder:italic"
           />
         </div>
@@ -218,13 +217,13 @@ const isItComplete = () => {
         <div class="my-5 flex justify-between">
           <button
             class="py-1 px-5 text-sm font-semibold bg-blue-700 hover:bg-blue-800 text-white hover: rounded-full"
-            @click="addNewMember"
+            @click="addNewMember()"
           >
-            Submit
+            Add
           </button>
           <button
             class="py-1 px-3 text-sm font-semibold border bg-[#fff] hover:bg-gray-200 text-black rounded-full"
-            @click="toggleAddMember"
+            @click="toggleAddMember()"
           >
             Cancel
           </button>
@@ -256,7 +255,7 @@ const isItComplete = () => {
             </div>
             <div
               @click="toggleAddMember"
-              class="box-content h-52 w-52 border border-3 mx-10 space-y-1 rounded-lg grid place-content-center cursor-pointer"
+              class="box-content h-64 w-72 border border-3 mx-10 space-y-1 rounded-lg grid place-content-center cursor-pointer"
             >
               <AddMemberIcon class="text-5xl" />
             </div>

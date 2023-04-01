@@ -22,29 +22,53 @@ Blogtopia is a powerful, user-friendly, and customizable blogging platform that 
 
 ### 1. Read a blog
 
+ Choose a blog you'd like to read
+
 ![image](https://user-images.githubusercontent.com/88102079/229194091-be488345-a665-4796-8543-afe4b323502a.png)
+
+ The blog page will display a content of the blog
 
 ![image](https://user-images.githubusercontent.com/88102079/229194198-30818858-7eb4-41f8-a792-c18133bf6b7d.png)
 
 ### 2. Create a blog
 
+Click on "Write your own" button
+
+![image](https://user-images.githubusercontent.com/88102079/229303305-4a58064d-4ff5-42f5-97c7-b90600ec2fd6.png)
+
+It will go to a write page that has inputs to create a blog 
+
 ![image](https://user-images.githubusercontent.com/88102079/229194329-98935923-f7dd-4e05-aebe-52e3314c4989.png)
 
 ![image](https://user-images.githubusercontent.com/88102079/229195681-a44d6c38-501d-4a6a-a9e0-9a42edc3c4e4.png)
 
+Filled the input to create new blog (All input have to be filled except cover image)
+
 ![image](https://user-images.githubusercontent.com/88102079/229195082-d8662395-96c0-41e0-8794-1919d0fa9087.png)
 
+You can choose the blog topics of your blog by clicking on topic button on 'Select topics' section. If you need to find specific topic, you can search in a "Search topics" input
+
 ![image](https://user-images.githubusercontent.com/88102079/229195851-ce63691f-df38-493e-a4ba-7d0da59d3c1c.png)
+
+Click "Publish" button to save the blog and it will navigated to the new blog page that you just created
 
 ![image](https://user-images.githubusercontent.com/88102079/229195189-b5d04e96-0d80-40fd-b96d-c60504bec264.png)
 
 ### 3. Edit a blog
 
+Click on the blue pen button of the blog that you'd like to edit 
+
 ![image](https://user-images.githubusercontent.com/88102079/229195347-0f1236c4-9814-4ab1-8a2d-37dc0c4520f7.png)
+
+It will navigated you to the write page but filled with the topic of the blog that you'd like to edit. The rest of steps will similar to "Create a blog"
+
+After you publish, data will updated to the chosen blog
 
 ![image](https://user-images.githubusercontent.com/88102079/229195385-69b1a0be-ad2e-4460-acf7-3caed373f3c8.png)
 
 ### 4. Delete blog
+
+Click on the red cross button of the blog that you'd like to delete. 
 
 ![image](https://user-images.githubusercontent.com/88102079/229196389-52f126d5-ab4f-4a94-8b51-3332d506d6ae.png)
 
