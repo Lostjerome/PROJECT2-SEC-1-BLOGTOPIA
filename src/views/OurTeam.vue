@@ -55,7 +55,7 @@ const addNewMember = async () => {
       itsEdit.value === true
         ? `http://localhost:5000/members/${targetMemberId.value}`
         : "http://localhost:5000/members";
-    const response = await fetch(urlPath, {
+    fetch(urlPath, {
       method: itsEdit.value === true ? "PUT" : "POST",
       headers: {
         "Content-Type": "application/json",

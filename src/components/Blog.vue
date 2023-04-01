@@ -27,7 +27,8 @@ const deleteBlog = async (event) => {
     });
 
     console.log("Blog deleted successfully");
-    window.location.reload();
+    // reload without using window location
+    router.go(0);
   } catch (err) {
     console.log(err.message);
   }
