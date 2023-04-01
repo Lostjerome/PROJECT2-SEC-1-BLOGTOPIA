@@ -3,18 +3,21 @@ import { ref, onMounted, watch, computed } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import Blog from "../components/Blog.vue";
 import ArrowUp from "../components/icons/ArrowUp.vue";
-import { getBlog, getBlogsFromTopic } from "../composable/getBlogs";
+// import { getBlog, getBlogsFromTopic } from "../composable/getBlogs";
 import { scrollToTop } from "../composable/scrollToTop";
+import { useBlog } from "../store/blog";
 
-const route = useRoute();
-const router = useRouter();
+const { getBlog, getBlogsFromTopic } = useBlog();
 
 const blog = ref({});
+const route = useRoute();
+const router = useRouter();
 const suggestedBlogs = ref([]);
 const noBlogs = computed(() => suggestedBlogs.value.length === 0);
 
 const loadPage = async () => {
   blog.value = await getBlog(route.params.id);
+
   // fetct suggested blogs with all same topics
   suggestedBlogs.value = await getBlogsFromTopic(blog.value.topics[0]);
   suggestedBlogs.value = suggestedBlogs.value.filter(

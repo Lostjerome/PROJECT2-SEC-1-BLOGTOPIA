@@ -3,45 +3,37 @@ import { computed, onMounted, ref } from "vue";
 import { useRouter, useRoute } from "vue-router";
 import CloseIcon from "../components/icons/CloseIcon.vue";
 import GlobeIcon from "../components/icons/GlobeIcon.vue";
-import { addBlog } from "../composable/addBlog";
-import { editBlog } from "../composable/editBlog";
-import { getBlog } from "../composable/getBlogs";
 import { getTopics } from "../composable/getTopics";
 import { validate } from "../composable/validateWrite";
+import { useBlog } from "../store/blog";
+
+const { getBlog, addBlog, editBlog } = useBlog();
+
+const blog = ref({});
+const topics = ref([]);
 
 const router = useRouter();
 const route = useRoute();
-const blog = ref({});
 const isEditting = ref(route.params.id);
-const topics = ref([]);
 
-const onPublish = () => {
+const publish = async () => {
   blog.value.date = new Date().toISOString().slice(0, 10);
   blog.value.cover = previewSrc.value;
-};
-
-const add = async () => {
-  onPublish();
   if (!validate(blog)) return;
   try {
-    const data = await addBlog(blog.value);
-    router.push(`/blog/${data.id}`);
+    if (isEditting.value) {
+      const data = await editBlog(route.params.id, blog.value);
+      router.push(`/blog/${data.id}`);
+    } else {
+      const data = await addBlog(blog.value);
+      router.push(`/blog/${data.id}`);
+    }
   } catch (err) {
     console.log(err.message);
   }
 };
 
-const edit = async () => {
-  onPublish();
-  if (!validate(blog)) return;
-  try {
-    const data = await editBlog(route.params.id, blog.value);
-    router.push(`/blog/${data.id}`);
-  } catch (err) {
-    console.log(err.message);
-  }
-};
-
+// Choose cover image feature
 const selectedBinaryFiles = ref("");
 const previewSrc = ref("");
 const chooseBinaryFile = (e) => {
@@ -69,6 +61,7 @@ const canPreview = computed(() => {
   return false;
 });
 
+// Choose topic feature
 const filteredTopicWord = ref("");
 const filteredTopics = computed(() => {
   return topics.value
@@ -123,7 +116,7 @@ onMounted(async () => {
         </router-link>
       </div>
       <button
-        @click="isEditting ? edit() : add()"
+        @click="publish"
         class="px-5 py-2 bg-blue-600 hover:bg-blue-700 duration-200 text-white rounded-full"
       >
         Publish

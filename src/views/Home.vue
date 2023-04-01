@@ -1,15 +1,15 @@
 <script setup>
 import Blog from "../components/Blog.vue";
-import { getBlogsPaginated } from "../composable/getBlogs";
-import { ref, onMounted, computed } from "vue";
+// import { getBlogsPaginated } from "../composable/getBlogs";
+import { ref, onMounted } from "vue";
 import Topics from "../components/Topics.vue";
+import { useBlog } from "../store/blog";
+import { storeToRefs } from "pinia";
 
-const blogs = ref([]);
+const { blogs, recommendedBlogs } = storeToRefs(useBlog());
+const { getBlogsPaginated } = useBlog();
 const suggestSection = ref(null);
 const currPage = ref(1);
-const recommendedBlogs = computed(() => {
-  return blogs.value.slice(0, 3);
-});
 
 const loadMore = async () => {
   currPage.value++;

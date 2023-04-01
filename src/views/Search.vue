@@ -3,11 +3,15 @@ import { onMounted, ref, watch } from "vue";
 import { useRoute } from "vue-router";
 import Blog from "../components/Blog.vue";
 import Topics from "../components/Topics.vue";
-import { getBlogsFromTitle } from "../composable/getBlogs";
+
+import { useBlog } from "../store/blog";
+import { storeToRefs } from "pinia";
+
+const { blogs } = storeToRefs(useBlog());
+const { getBlogsFromTitle } = useBlog();
 
 const route = useRoute();
 const searchTerm = ref(route.params.searchTerm);
-const blogs = ref([]);
 
 onMounted(async () => {
   blogs.value = await getBlogsFromTitle(searchTerm.value);

@@ -1,11 +1,14 @@
 <script setup>
 import Blog from "../components/Blog.vue";
-import { getBlogsFromTopic } from "../composable/getBlogs";
 import { ref, onMounted, watch } from "vue";
 import { useRoute } from "vue-router";
 import Topics from "../components/Topics.vue";
+import { useBlog } from "../store/blog";
+import { storeToRefs } from "pinia";
 
-const blogs = ref([]);
+const { blogs } = storeToRefs(useBlog());
+const { getBlogsFromTopic } = useBlog();
+
 const router = useRoute();
 const selectedTopic = ref(router.params.id);
 

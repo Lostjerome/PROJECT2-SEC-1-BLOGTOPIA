@@ -4,9 +4,12 @@ import { scrollToTop } from "../composable/scrollToTop";
 import EditIcon from "../components/icons/EditIcon.vue";
 import CloseIcon from "../components/icons/CloseIcon.vue";
 import { ref } from "vue";
+import { useBlog } from "../store/blog";
 
 const router = useRouter();
 const isDelete = ref(false);
+
+const { deleteBlog } = useBlog();
 
 const goToBlog = () => {
   router.push(`/blog/${props.blog.id}`);
@@ -19,19 +22,10 @@ const editBlog = (event) => {
   scrollToTop();
 };
 
-const deleteBlog = async (event) => {
+const onDeleteBlog = (event) => {
   event.stopPropagation();
-  try {
-    fetch(`http://localhost:5000/blogs/${props.blog.id}`, {
-      method: "DELETE",
-    });
-
-    console.log("Blog deleted successfully");
-    // reload without using window location
-    router.go(0);
-  } catch (err) {
-    console.log(err.message);
-  }
+  deleteBlog(props.blog.id);
+  isDelete.value = false;
 };
 
 const toggleIsDelete = (event) => {
@@ -68,7 +62,7 @@ const props = defineProps({
               Cancel
             </button>
             <button
-              @click="deleteBlog"
+              @click="onDeleteBlog"
               class="bg-red-600 hover:bg-red-700 duration-200 rounded-full p-1 px-3 text-center w-fit text-xs text-white font-bold"
             >
               Delete
