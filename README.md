@@ -70,7 +70,15 @@ After you publish, data will updated to the chosen blog
 
 Click on the red cross button of the blog that you'd like to delete. 
 
-![image](https://user-images.githubusercontent.com/88102079/229196389-52f126d5-ab4f-4a94-8b51-3332d506d6ae.png)
+![image](https://user-images.githubusercontent.com/88102079/229308926-e2e4b54d-17b0-45e8-bd5f-c74c8f4ad51f.png)
+
+Confirm that you will delete the blog
+
+![image](https://user-images.githubusercontent.com/88102079/229308948-ae35a39c-ba15-4207-9d2f-e89c0bbfd2d7.png)
+
+The blog will instantly disappear
+
+![image](https://user-images.githubusercontent.com/88102079/229308961-6b5fd7c2-0e03-4641-adfb-103f93e7cb51.png)
 
 ## Members
 
