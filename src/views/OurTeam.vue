@@ -9,10 +9,13 @@ const itsEdit = ref(false);
 const members = ref([]);
 const member = ref({});
 
+//  input id from editMember(id from emits)
+const targetMemberId = ref();
+
 onMounted(async () => {
   members.value = await getMember();
   member.value = {
-    id: "",
+    stdId: "",
     name: "",
     github: "",
     ig: "",
@@ -27,6 +30,7 @@ const toggleAddMember = () => {
   selectedBinaryFile.value = "";
   previewSrc.value = "";
   member.value = {};
+  itsEdit.value = false;
 };
 
 // Add member
@@ -34,7 +38,8 @@ const addNewMember = async () => {
   member.value.img = previewSrc.value;
   console.log(member.value.name);
   const objectMember = {
-    id: member.value.id,
+    id: `${members.value.length + 1}`,
+    stdId: member.value.stdId,
     name: member.value.name,
     url: {
       github: member.value.github,
@@ -48,7 +53,7 @@ const addNewMember = async () => {
   try {
     const urlPath =
       itsEdit.value === true
-        ? `http://localhost:5000/members/${member.value.id}`
+        ? `http://localhost:5000/members/${targetMemberId.value}`
         : "http://localhost:5000/members";
     const response = await fetch(urlPath, {
       method: itsEdit.value === true ? "PUT" : "POST",
@@ -62,6 +67,7 @@ const addNewMember = async () => {
     // members.value.push(addedMember);
     members.value = await getMember();
     console.log(members.value);
+    itsEdit.value = false;
     toggleAddMember();
   } catch (error) {
     console.log(error.m);
@@ -101,13 +107,14 @@ const previewImage = () => {
 
 // getData-member from id
 const editMember = async (id) => {
+  targetMemberId.value = id;
   itsEdit.value = true;
   setAddMember.value = !setAddMember.value;
   const getDataMember = await getMember(id);
-  console.log(getDataMember.img);
 
   previewSrc.value = getDataMember.img;
-  member.value = getDataMember;
+  member.value.stdId = getDataMember.stdId;
+  member.value.name = getDataMember.name;
   member.value.github = getDataMember.url.github;
   member.value.ig = getDataMember.url.ig;
 };
@@ -123,11 +130,14 @@ const checkBeforeDelete = (id) => {
 
 // Check form input
 const isItComplete = () => {
-  if (member.value.name === undefined) {
-    alert("Please enter your name");
+  if (member.value.stdId === undefined) {
+    alert("Please enter your student ID!!");
+    return false;
+  } else if (member.value.name === undefined) {
+    alert("Please enter your name!!");
     return false;
   } else if (member.value.img === "") {
-    alert("Please choose your image");
+    alert("Please choose your image!!");
     return false;
   }
   return true;
@@ -173,7 +183,7 @@ const isItComplete = () => {
           <input
             type="text"
             placeholder="64xxxxxxxxx"
-            v-model="member.id"
+            v-model="member.stdId"
             class="border rounded-md px-3 w-full placeholder:text-xs placeholder:italic"
           />
         </div>
@@ -210,7 +220,7 @@ const isItComplete = () => {
             class="py-1 px-5 text-sm font-semibold bg-blue-700 hover:bg-blue-800 text-white hover: rounded-full"
             @click="addNewMember"
           >
-            Add
+            Submit
           </button>
           <button
             class="py-1 px-3 text-sm font-semibold border bg-[#fff] hover:bg-gray-200 text-black rounded-full"
@@ -246,7 +256,7 @@ const isItComplete = () => {
             </div>
             <div
               @click="toggleAddMember"
-              class="box-content h-64 w-72 border border-3 mx-10 space-y-1 rounded-lg grid place-content-center cursor-pointer"
+              class="box-content h-52 w-52 border border-3 mx-10 space-y-1 rounded-lg grid place-content-center cursor-pointer"
             >
               <AddMemberIcon class="text-5xl" />
             </div>
