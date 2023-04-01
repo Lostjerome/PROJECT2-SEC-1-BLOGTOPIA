@@ -2,7 +2,7 @@ const getBlog = async (id) => {
   // if id is not provided, return all blogs
   try {
     const idParam = id ? `/${id}` : "";
-    const res = await fetch(`http://localhost:5000/blogs/${idParam}`);
+    const res = await fetch(`http://localhost:5000/blogs${idParam}`);
     return await res.json();
   } catch (err) {
     console.log(err);
@@ -29,7 +29,7 @@ const getBlogsFromTopic = async (topic) => {
   }
 };
 
-const getBlogsPaginated = async (page, limit = 10) => {
+const getBlogsPaginated = async (page = 0, limit = 10) => {
   try {
     const res = await fetch(
       `http://localhost:5000/blogs?_page=${page}&_limit=${limit}`
@@ -40,19 +40,4 @@ const getBlogsPaginated = async (page, limit = 10) => {
   }
 };
 
-const getRecommendedBlogs = async () => {
-  try {
-    const res = await fetch(`http://localhost:5000/blogs?_limit=3`);
-    return await res.json();
-  } catch (err) {
-    console.log(err);
-  }
-};
-
-export {
-  getBlog,
-  getBlogsFromTitle,
-  getBlogsFromTopic,
-  getBlogsPaginated,
-  getRecommendedBlogs,
-};
+export { getBlog, getBlogsFromTitle, getBlogsFromTopic, getBlogsPaginated };

@@ -5,7 +5,7 @@ import getMember from "../composable/getMember";
 import AddMemberIcon from "../components/icons/MaterialSymbolsPersonAddRounded.vue";
 import { deleteMembers } from "../composable/deleteMembers.js";
 
-const itsEdit = ref(false)
+const itsEdit = ref(false);
 const members = ref([]);
 const member = ref({});
 
@@ -29,7 +29,7 @@ const toggleAddMember = () => {
   member.value = {};
 };
 
-// Add member 
+// Add member
 const addNewMember = async () => {
   member.value.img = previewSrc.value;
   console.log(member.value.name);
@@ -46,9 +46,12 @@ const addNewMember = async () => {
   isItComplete();
 
   try {
-    const urlPath = itsEdit.value === true ? `http://localhost:5000/members/${member.value.id}` : "http://localhost:5000/members"
+    const urlPath =
+      itsEdit.value === true
+        ? `http://localhost:5000/members/${member.value.id}`
+        : "http://localhost:5000/members";
     const response = await fetch(urlPath, {
-      method: itsEdit.value === true ? "PUT" :"POST",
+      method: itsEdit.value === true ? "PUT" : "POST",
       headers: {
         "Content-Type": "application/json",
       },
@@ -98,7 +101,7 @@ const previewImage = () => {
 
 // getData-member from id
 const editMember = async (id) => {
-  itsEdit.value = true
+  itsEdit.value = true;
   setAddMember.value = !setAddMember.value;
   const getDataMember = await getMember(id);
   console.log(getDataMember.img);
@@ -205,13 +208,13 @@ const isItComplete = () => {
         <div class="my-5 flex justify-between">
           <button
             class="py-1 px-5 text-sm font-semibold bg-blue-700 hover:bg-blue-800 text-white hover: rounded-full"
-            @click="addNewMember()"
+            @click="addNewMember"
           >
             Add
           </button>
           <button
             class="py-1 px-3 text-sm font-semibold border bg-[#fff] hover:bg-gray-200 text-black rounded-full"
-            @click="toggleAddMember()"
+            @click="toggleAddMember"
           >
             Cancel
           </button>
