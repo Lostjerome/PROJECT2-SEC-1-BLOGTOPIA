@@ -3,8 +3,10 @@ import { useRouter } from "vue-router";
 import { scrollToTop } from "../composable/scrollToTop";
 import EditIcon from "../components/icons/EditIcon.vue";
 import CloseIcon from "../components/icons/CloseIcon.vue";
+import { ref } from "vue";
 
 const router = useRouter();
+const isDelete = ref(false);
 
 const goToBlog = () => {
   router.push(`/blog/${props.blog.id}`);
@@ -31,6 +33,11 @@ const deleteBlog = async (event) => {
   }
 };
 
+const toggleIsDelete = (event) => {
+  event.stopPropagation();
+  isDelete.value = !isDelete.value;
+};
+
 const props = defineProps({
   isList: {
     type: Boolean,
@@ -44,6 +51,31 @@ const props = defineProps({
 <template>
   <!-- blog -->
   <div>
+    <!-- pop up to confirm delete -->
+    <div
+      v-if="isDelete"
+      class="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 z-50"
+    >
+      <div class="flex flex-col items-center justify-center h-full">
+        <div class="bg-white rounded-xl p-5">
+          <p class="text-center">Are you sure you want to delete this blog?</p>
+          <div class="flex justify-center gap-2 mt-5">
+            <button
+              @click="isDelete = false"
+              class="bg-slate-300 hover:bg-slate-400 duration-200 rounded-full p-1 px-3 text-center w-fit text-xs"
+            >
+              Cancel
+            </button>
+            <button
+              @click="deleteBlog"
+              class="bg-red-600 hover:bg-red-700 duration-200 rounded-full p-1 px-3 text-center w-fit text-xs text-white font-bold"
+            >
+              Delete
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
     <button
       @click="goToBlog"
       class="text-start hover:bg-slate-200 rounded-xl duration-200 m-auto w-full p-3"
@@ -95,7 +127,7 @@ const props = defineProps({
             <EditIcon /></button
           ><button
             class="bg-red-600 hover:bg-red-700 duration-200 text-white fill-white text-sm rounded-full p-1"
-            @click="deleteBlog"
+            @click="toggleIsDelete"
           >
             <CloseIcon />
           </button>
