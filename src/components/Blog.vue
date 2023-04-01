@@ -25,7 +25,6 @@ const deleteBlog = async (event) => {
     fetch(`http://localhost:5000/blogs/${props.blog.id}`, {
       method: "DELETE",
     });
-
     console.log("Blog deleted successfully");
     window.location.reload();
   } catch (err) {
