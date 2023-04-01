@@ -1,6 +1,6 @@
 <script setup>
 import Blog from "../components/Blog.vue";
-import { getBlogsPaginated, getRecommendedBlogs } from "../composable/getBlogs";
+import { getBlogsPaginated } from "../composable/getBlogs";
 import { ref, onMounted, computed } from "vue";
 import Topics from "../components/Topics.vue";
 
