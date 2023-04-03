@@ -92,27 +92,27 @@ https://www.youtube.com/watch?v=XxTZMP3TRJ0
  feature - Implementing functions to components or views
 ```
 
-[@sealbb](https://www.github.com/sealbb) 64130500013 Chonticha Li *(20%)* 
+[@sealbb](https://www.github.com/sealbb) 64130500013 Chonticha Li *(19.5%)* 
  - Home view
  - Search blog by title & topic feature
  - Delete member feature
  
-[@lostjerome](https://www.github.com/lostjerome) 64130500017 Naronkrach Tanajarusawas *(20%)*
+[@lostjerome](https://www.github.com/lostjerome) 64130500017 Naronkrach Tanajarusawas *(22%)*
  - Topics component
  - Blog view 
- - Delete Blog feature
- - Write & Update blog feature
+ - Delete Blog feature & function
+ - Write & Update blog feature & function
  
-[@bamxxls](https://www.github.com/bamxxls) 64130500026 Thaksaporn Lachaisong *(20%)*
+[@bamxxls](https://www.github.com/bamxxls) 64130500026 Thaksaporn Lachaisong *(19.5%)*
  - Member component
  - OurTeam view
  - Add member feature
  
-[@CRYINGV](https://www.github.com/CRYINGV) 64130500030 Thanaphat Julmeewong *(20%)*
+[@CRYINGV](https://www.github.com/CRYINGV) 64130500030 Thanaphat Julmeewong *(19.5%)*
  - NavBar component
  - All getBlog functions (4)
  
- [@darKKOREO](https://www.github.com/darKKOREO) 64130500031 Tanapat Daoloy *(20%)*
+ [@darKKOREO](https://www.github.com/darKKOREO) 64130500031 Tanapat Daoloy *(19.5%)*
  - Blog component
  - Topic view
  - Search view
