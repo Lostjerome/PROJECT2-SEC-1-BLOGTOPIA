@@ -80,7 +80,7 @@ The blog will instantly disappear
 
 ![image](https://user-images.githubusercontent.com/88102079/229308961-6b5fd7c2-0e03-4641-adfb-103f93e7cb51.png)
 
-### Blogtopia features video URL
+## Blogtopia features video URL
 
 https://www.youtube.com/watch?v=XxTZMP3TRJ0
 
