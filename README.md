@@ -80,18 +80,40 @@ The blog will instantly disappear
 
 ![image](https://user-images.githubusercontent.com/88102079/229308961-6b5fd7c2-0e03-4641-adfb-103f93e7cb51.png)
 
+### Blogtopia features video URL
+
+https://www.youtube.com/watch?v=XxTZMP3TRJ0
+
 ## Members
 
-- [@sealbb](https://www.github.com/sealbb) 64130500013 Chonticha Li *(20%)*
+```
+ view - A page of app
+ function - A function that able to be called
+ feature - Implementing functions to components or views
+```
 
-- [@lostjerome](https://www.github.com/lostjerome) 64130500017 Naronkrach Tanajarusawas *(20%)*
-
-- [@bamxxls](https://www.github.com/bamxxls) 64130500026 Thaksaporn Lachaisong *(20%)*
-
-- [@CRYINGV](https://www.github.com/CRYINGV) 64130500030 Thanaphat Julmeewong *(20%)*
-
-- [@darKKOREO](https://www.github.com/darKKOREO) 64130500031 Tanapat Daoloy *(20%)*
-
-
-
-
+[@sealbb](https://www.github.com/sealbb) 64130500013 Chonticha Li *(20%)* 
+ - Home view
+ - Search blog by title & topic feature
+ - Delete member feature
+ 
+[@lostjerome](https://www.github.com/lostjerome) 64130500017 Naronkrach Tanajarusawas *(20%)*
+ - Topics component
+ - Blog view 
+ - Delete Blog feature
+ - Write & Update blog feature
+ 
+[@bamxxls](https://www.github.com/bamxxls) 64130500026 Thaksaporn Lachaisong *(20%)*
+ - Member component
+ - OurTeam view
+ - Add member feature
+ 
+[@CRYINGV](https://www.github.com/CRYINGV) 64130500030 Thanaphat Julmeewong *(20%)*
+ - NavBar component
+ - All getBlog functions (4)
+ 
+ [@darKKOREO](https://www.github.com/darKKOREO) 64130500031 Tanapat Daoloy *(20%)*
+ - Blog component
+ - Topic view
+ - Search view
+ - Edit member feature
