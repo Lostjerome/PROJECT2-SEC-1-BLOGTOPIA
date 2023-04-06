@@ -36,7 +36,6 @@ const toggleAddMember = () => {
 // Add member
 const addNewMember = async () => {
   member.value.img = previewSrc.value;
-  console.log(member.value.name);
   const objectMember = {
     id: `${members.value.length + 1}`,
     stdId: member.value.stdId,
@@ -55,7 +54,7 @@ const addNewMember = async () => {
       itsEdit.value === true
         ? `http://localhost:5000/members/${targetMemberId.value}`
         : "http://localhost:5000/members";
-    const response = await fetch(urlPath, {
+    fetch(urlPath, {
       method: itsEdit.value === true ? "PUT" : "POST",
       headers: {
         "Content-Type": "application/json",
@@ -63,10 +62,8 @@ const addNewMember = async () => {
       body: JSON.stringify(objectMember),
     });
     console.log("add successfully");
-    // const addedMember = await response.json(); // add backend เสร็จ ถึงไป add ใน frontend
-    // members.value.push(addedMember);
+
     members.value = await getMember();
-    console.log(members.value);
     itsEdit.value = false;
     toggleAddMember();
   } catch (error) {
@@ -80,7 +77,6 @@ const previewSrc = ref("");
 
 const chooseBinaryFile = (e) => {
   selectedBinaryFile.value = e.target.files[0];
-  console.log(selectedBinaryFile.value);
 };
 
 const canPreview = computed(() => {
@@ -88,7 +84,6 @@ const canPreview = computed(() => {
     return true;
   } else if (typeof selectedBinaryFile.value === "object") {
     previewImage();
-    console.log(previewSrc.value);
     return true;
   }
   return false;
