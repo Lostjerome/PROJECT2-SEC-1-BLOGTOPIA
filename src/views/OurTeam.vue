@@ -15,7 +15,7 @@ const targetMemberId = ref();
 onMounted(async () => {
   members.value = await getMember();
   member.value = {
-    id: "",
+    stdId: "",
     name: "",
     github: "",
     ig: "",
@@ -36,7 +36,6 @@ const toggleAddMember = () => {
 // Add member
 const addNewMember = async () => {
   member.value.img = previewSrc.value;
-  console.log(member.value.name);
   const objectMember = {
     id: `${members.value.length + 1}`,
     stdId: member.value.stdId,
@@ -55,7 +54,7 @@ const addNewMember = async () => {
       itsEdit.value === true
         ? `http://localhost:5000/members/${targetMemberId.value}`
         : "http://localhost:5000/members";
-    const response = await fetch(urlPath, {
+    await fetch(urlPath, {
       method: itsEdit.value === true ? "PUT" : "POST",
       headers: {
         "Content-Type": "application/json",
@@ -63,14 +62,12 @@ const addNewMember = async () => {
       body: JSON.stringify(objectMember),
     });
     console.log("add successfully");
-    // const addedMember = await response.json(); // add backend เสร็จ ถึงไป add ใน frontend
-    // members.value.push(addedMember);
     members.value = await getMember();
     console.log(members.value);
     itsEdit.value = false;
     toggleAddMember();
   } catch (error) {
-    console.log(error.m);
+    console.log(error);
   }
 };
 
@@ -88,7 +85,6 @@ const canPreview = computed(() => {
     return true;
   } else if (typeof selectedBinaryFile.value === "object") {
     previewImage();
-    console.log(previewSrc.value);
     return true;
   }
   return false;
@@ -182,7 +178,7 @@ const isItComplete = () => {
           <input
             type="text"
             placeholder="64xxxxxxxxx"
-            v-model="member.id"
+            v-model="member.stdId"
             class="border rounded-md px-3 w-full placeholder:text-xs placeholder:italic"
           />
         </div>
@@ -217,13 +213,13 @@ const isItComplete = () => {
         <div class="my-5 flex justify-between">
           <button
             class="py-1 px-5 text-sm font-semibold bg-blue-700 hover:bg-blue-800 text-white hover: rounded-full"
-            @click="addNewMember()"
+            @click="addNewMember"
           >
             Add
           </button>
           <button
             class="py-1 px-3 text-sm font-semibold border bg-[#fff] hover:bg-gray-200 text-black rounded-full"
-            @click="toggleAddMember()"
+            @click="toggleAddMember"
           >
             Cancel
           </button>
@@ -255,7 +251,7 @@ const isItComplete = () => {
             </div>
             <div
               @click="toggleAddMember"
-              class="box-content h-64 w-72 border border-3 mx-10 space-y-1 rounded-lg grid place-content-center cursor-pointer"
+              class="box-content h-52 w-52 border border-3 mx-10 space-y-1 rounded-lg grid place-content-center cursor-pointer"
             >
               <AddMemberIcon class="text-5xl" />
             </div>

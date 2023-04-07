@@ -16,10 +16,6 @@ const validate = (blog) => {
     alert("Please enter your name");
     return false;
   }
-  if (blog.value.date === "") {
-    alert("Please enter a date");
-    return false;
-  }
   return true;
 };
 
