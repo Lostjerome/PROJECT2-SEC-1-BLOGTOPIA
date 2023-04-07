@@ -7,20 +7,26 @@ import { deleteMembers } from "../composable/deleteMembers.js";
 
 const itsEdit = ref(false);
 const members = ref([]);
-const member = ref({});
+const member = ref({
+  stdId: "",
+    name: "",
+    github: "",
+    ig: "",
+    img: "",
+});
 
 //  input id from editMember(id from emits)
 const targetMemberId = ref();
 
 onMounted(async () => {
   members.value = await getMember();
-  member.value = {
-    stdId: "",
-    name: "",
-    github: "",
-    ig: "",
-    img: "",
-  };
+  // member.value = {
+  //   stdId: "",
+  //   name: "",
+  //   github: "",
+  //   ig: "",
+  //   img: "",
+  // };
 });
 
 // Btn
