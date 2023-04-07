@@ -20,13 +20,6 @@ const targetMemberId = ref();
 
 onMounted(async () => {
   members.value = await getMember();
-  // member.value = {
-  //   stdId: "",
-  //   name: "",
-  //   github: "",
-  //   ig: "",
-  //   img: "",
-  // };
 });
 
 // Btn
