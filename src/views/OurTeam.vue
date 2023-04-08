@@ -7,20 +7,19 @@ import { deleteMembers } from "../composable/deleteMembers.js";
 
 const itsEdit = ref(false);
 const members = ref([]);
-const member = ref({});
+const member = ref({
+  stdId: "",
+  name: "",
+  github: "",
+  ig: "",
+  img: "",
+});
 
 //  input id from editMember(id from emits)
 const targetMemberId = ref();
 
 onMounted(async () => {
   members.value = await getMember();
-  member.value = {
-    id: "",
-    name: "",
-    github: "",
-    ig: "",
-    img: "",
-  };
 });
 
 // Btn
@@ -54,6 +53,7 @@ const addNewMember = async () => {
       itsEdit.value === true
         ? `http://localhost:5000/members/${targetMemberId.value}`
         : "http://localhost:5000/members";
+
     fetch(urlPath, {
       method: itsEdit.value === true ? "PUT" : "POST",
       headers: {
@@ -62,12 +62,11 @@ const addNewMember = async () => {
       body: JSON.stringify(objectMember),
     });
     console.log("add successfully");
-
     members.value = await getMember();
     itsEdit.value = false;
     toggleAddMember();
   } catch (error) {
-    console.log(error.m);
+    console.log(error);
   }
 };
 
@@ -177,7 +176,7 @@ const isItComplete = () => {
           <input
             type="text"
             placeholder="64xxxxxxxxx"
-            v-model="member.id"
+            v-model="member.stdId"
             class="border rounded-md px-3 w-full placeholder:text-xs placeholder:italic"
           />
         </div>
@@ -212,13 +211,13 @@ const isItComplete = () => {
         <div class="my-5 flex justify-between">
           <button
             class="py-1 px-5 text-sm font-semibold bg-blue-700 hover:bg-blue-800 text-white hover: rounded-full"
-            @click="addNewMember()"
+            @click="addNewMember"
           >
             Add
           </button>
           <button
             class="py-1 px-3 text-sm font-semibold border bg-[#fff] hover:bg-gray-200 text-black rounded-full"
-            @click="toggleAddMember()"
+            @click="toggleAddMember"
           >
             Cancel
           </button>
@@ -250,7 +249,7 @@ const isItComplete = () => {
             </div>
             <div
               @click="toggleAddMember"
-              class="box-content h-64 w-72 border border-3 mx-10 space-y-1 rounded-lg grid place-content-center cursor-pointer"
+              class="box-content h-52 w-52 border border-3 mx-10 space-y-1 rounded-lg grid place-content-center cursor-pointer"
             >
               <AddMemberIcon class="text-5xl" />
             </div>
