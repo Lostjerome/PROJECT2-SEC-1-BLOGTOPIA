@@ -86,8 +86,7 @@ export const useBlog = defineStore("blog", () => {
       });
 
       // remove the blog
-      const index = blogs.value.findIndex((blog) => blog.id === id);
-      blogs.value.splice(index, 1);
+      blogs.value = blogs.value.filter((blog) => blog.id !== id);
 
       console.log("Blog deleted successfully");
     } catch (err) {

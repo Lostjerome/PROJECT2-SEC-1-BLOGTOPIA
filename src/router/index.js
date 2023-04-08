@@ -23,7 +23,7 @@ export const routes = [
     component: OurTeam,
   },
   {
-    path: "/topic/:id",
+    path: "/topic/:topicName",
     name: "Topic",
     component: Topic,
   },

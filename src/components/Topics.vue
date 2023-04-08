@@ -13,8 +13,8 @@ const filteredTopics = computed(() => {
   });
 });
 
-const selectTopic = (topic) => {
-  router.push(`/topic/${topic}`);
+const selectTopic = (topicName) => {
+  router.push(`/topic/${topicName}`);
   scrollToTop();
 };
 
